@@ -38,6 +38,9 @@ import ProjectMatter from "./Projects/ProjectMatter";
 import DetailMatter from "./Projects/DetailMatter";
 import { FaArrowUp } from "react-icons/fa";
 import Testcycle from "./Test_Cycles/Testcycle";
+import Profile from "./Profile/Profile";
+import PersonalInfo from "./Profile/PersonalInfo";
+
 
 const App = () => {
   return (
@@ -64,6 +67,7 @@ const App = () => {
       <Route path="/guidlines" element={<Guidlines />}></Route>
       <Route path="/policy" element={<Policy />}></Route>
       <Route path="/Payment" element={<Money></Money>}></Route>
+      <Route path="/PersonalInfo" element={<Profile/>}></Route>
       <Route
         path="/ProjectMatter"
         element={<ProjectsSection></ProjectsSection>}
@@ -188,10 +192,10 @@ function Bio() {
 function Money() {
   return (
     <>
-      <div className="ml-64 p-6">
+      <div className="ml-64 p-4 bg-gray-100 ">
         <DashNav val={"Payment"} />
       </div>
-      <div className="ml-64 min-h-screen flex">
+      <div className="ml-64 min-h-screen flex my-7">
         <Offcanvas></Offcanvas>
         <Payment></Payment>
       </div>
@@ -201,7 +205,7 @@ function Money() {
 function ProjectsSection() {
   return (
     <>
-      <div className="ml-64 p-6">
+      <div className="ml-64 p-4 bg-gray-100">
         <DashNav val={"Projects Board"} />
       </div>
       <div className="ml-64 min-h-screen">

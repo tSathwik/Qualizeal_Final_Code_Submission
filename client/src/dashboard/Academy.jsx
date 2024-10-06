@@ -114,7 +114,7 @@ const Academy = () => {
       <Offcanvas />
       <div>
         <div className="p-4  flex-1 bg-gray-100">
-          <DashNav />
+          <DashNav val="Academy"/>
         </div>
         <div>
           <h1 className="font-bold text-3xl text-center mt-6">

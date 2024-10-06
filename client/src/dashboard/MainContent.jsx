@@ -6,7 +6,7 @@ import DashNav from "./DashNav";
 const MainContent = () => {
   return (
     <div className="flex-1 bg-gray-100 p-6">
-      <DashNav />
+      <DashNav val="Home"/>
 
       {/* Main Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
