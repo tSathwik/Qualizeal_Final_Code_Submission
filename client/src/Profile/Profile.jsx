@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import Offcanvas from '../dashboard/Offcanvas';
 import DashNav from '../dashboard/DashNav';
 import PersonalInfo from './PersonalInfo';
+import AddressInfo from './AddressInfo'; // Import AddressInfo component
+import DevicesInfo from './DevicesInfo'; // Import DevicesInfo component
+import PaymentTestingInfo from './PaymentTestingInfo'; // Import PaymentTestingInfo component
+import SubscriptionInfo from './SubscriptionInfo'; // Import SubscriptionInfo component
+import InterestsInfo from './InterestsInfo'; // Import InterestsInfo component
+import StatisticsInfo from './StatisticsInfo'; // Import StatisticsInfo component
 
 const Profile = () => {
     // State to manage the active tab
@@ -10,6 +16,28 @@ const Profile = () => {
     // Function to set the active tab on click
     const handleTabClick = (tabName) => {
         setActiveTab(tabName);
+    };
+
+    // Conditionally render the content based on activeTab
+    const renderContent = () => {
+        switch (activeTab) {
+            case 'Personal':
+                return <PersonalInfo />;
+            case 'Address':
+                return <AddressInfo />;
+            case 'Devices':
+                return <DevicesInfo />;
+            case 'Payment Testing':
+                return <PaymentTestingInfo />;
+            case 'SubscriptionInfo':
+                return <SubscriptionInfo />;
+            case 'InterestsInfo':
+                return <InterestsInfo />;
+            case 'StatisticsInfo':
+                return <StatisticsInfo />;
+            default:
+                return <PersonalInfo />;
+        }
     };
 
     return (
@@ -28,7 +56,7 @@ const Profile = () => {
                         <div className='flex gap-7'>
                             <li
                                 className={`cursor-pointer transition-all duration-300 ${activeTab === 'Personal' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
-                                onClick={() => handleTabClick('PersonalInfo')}
+                                onClick={() => handleTabClick('Personal')}
                             >
                                 Personal
                             </li>
@@ -51,28 +79,31 @@ const Profile = () => {
                                 Payment Testing
                             </li>
                             <li
-                                className={`cursor-pointer transition-all duration-300 ${activeTab === 'Subscriptions' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
-                                onClick={() => handleTabClick('Subscriptions')}
+                                className={`cursor-pointer transition-all duration-300 ${activeTab === 'SubscriptionInfo' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
+                                onClick={() => handleTabClick('SubscriptionInfo')}
                             >
-                                Subscriptions
+                                SubscriptionInfo
                             </li>
                             <li
-                                className={`cursor-pointer transition-all duration-300 ${activeTab === 'Interests' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
-                                onClick={() => handleTabClick('Interests')}
+                                className={`cursor-pointer transition-all duration-300 ${activeTab === 'InterestsInfo' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
+                                onClick={() => handleTabClick('InterestsInfo')}
                             >
-                                Interests
+                                InterestsInfo
                             </li>
                             <li
-                                className={`cursor-pointer transition-all duration-300 ${activeTab === 'Statistics' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
-                                onClick={() => handleTabClick('Statistics')}
+                                className={`cursor-pointer transition-all duration-300 ${activeTab === 'StatisticsInfo' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
+                                onClick={() => handleTabClick('StatisticsInfo')}
                             >
-                                Statistics
+                                StatisticsInfo
                             </li>
                         </div>
                     </ul>
                 </div>
                 <hr className='mb-3' />
-                <PersonalInfo />
+                {/* Render the appropriate component based on the active tab */}
+                <div className="p-4">
+                    {renderContent()}
+                </div>
             </div>
         </>
     );
