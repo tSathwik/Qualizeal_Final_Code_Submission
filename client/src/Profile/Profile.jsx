@@ -28,7 +28,7 @@ const Profile = () => {
                         <div className='flex gap-7'>
                             <li
                                 className={`cursor-pointer transition-all duration-300 ${activeTab === 'Personal' ? 'underline text-blue-500' : 'hover:text-blue-300'}`}
-                                onClick={() => handleTabClick('Personal')}
+                                onClick={() => handleTabClick('PersonalInfo')}
                             >
                                 Personal
                             </li>
