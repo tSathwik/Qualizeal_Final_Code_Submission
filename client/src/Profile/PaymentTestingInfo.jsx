@@ -14,13 +14,16 @@ const PaymentTestingInfo = () => {
     const [noCreditDebit, setNoCreditDebit] = useState(false);
 
     return (
-        <div className="p-8 bg-blue-50 min-h-screen">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold mb-4">Payment Testing</h2>
+        <div className="p-8 bg-blue-50 min-h-screen Payment Testing">
+            <div className="text-center text-4xl font-semibold mb-10 text-gray-800">
+              <h1>Payment Testing</h1>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-xl">
+                
 
                 {/* E-Wallets */}
                 <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">E-Wallets</label>
+                    <label className="block text-sm font-semibold mb-1 text-gray-700">E-Wallets</label>
                     <select
                         value={ewallet}
                         onChange={(e) => {
@@ -53,7 +56,7 @@ const PaymentTestingInfo = () => {
 
                 {/* Mobile Wallets */}
                 <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Mobile Wallets</label>
+                    <label className="block font-semibold text-sm text-gray-700 mb-1">Mobile Wallets</label>
                     <select
                         value={mobileWallet}
                         onChange={(e) => {
@@ -86,7 +89,7 @@ const PaymentTestingInfo = () => {
 
                 {/* Alternate Payments */}
                 <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Alternate Payments</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Alternate Payments</label>
                     <select
                         value={alternatePayments}
                         onChange={(e) => {
@@ -119,7 +122,7 @@ const PaymentTestingInfo = () => {
 
                 {/* Willing to do purchases */}
                 <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Willing to do purchases (with refunds)</label>
+                    <label className="block text-sm font-semibold mb-1 text-gray-700">Willing to do purchases (with refunds)</label>
                     <div className="flex items-center">
                         <input
                             type="radio"
@@ -142,7 +145,7 @@ const PaymentTestingInfo = () => {
 
                 {/* Passive Payment Testing */}
                 <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Are you willing to participate in Passive Payment Testing?</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Are you willing to participate in Passive Payment Testing?</label>
                     <div className="flex items-center">
                         <input
                             type="radio"
@@ -168,7 +171,7 @@ const PaymentTestingInfo = () => {
 
                 {/* Bank Account */}
                 <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Bank Account</label>
+                    <label className="block text-sm font-semibold mb-1 text-gray-700">Bank Account</label>
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -185,7 +188,7 @@ const PaymentTestingInfo = () => {
 
                 {/* Credit & Debit Cards */}
                 <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">Credit & Debit Cards</label>
+                    <label className="block text-sm font-semibold mb-1 text-gray-700">Credit & Debit Cards</label>
                     <div className="flex items-center">
                         <input
                             type="checkbox"

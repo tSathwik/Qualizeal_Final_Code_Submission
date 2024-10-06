@@ -12,7 +12,7 @@ const AddressInfo = () => {
           alt="User Profile" 
           className="w-48 h-48 rounded-full mb-5 md:mb-0 md:mr-10 shadow-lg" 
         />*/}
-        <div className="mx-5 bg-white rounded-xl shadow-lg p-6 w-full md:w-80">
+        <div className="mx-5 bg-white rounded-xl shadow-xl p-6 w-full md:w-80">
           <div className="mb-5">
             <h2 className="font-semibold text-lg text-gray-700">City</h2>
             <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">Hyderabad</div>
