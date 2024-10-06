@@ -39,7 +39,7 @@ const Offcanvas = () => {
           </li>
           <li className="mb-2 mt-5">
             <NavLink
-              to="/SignOut"
+              to="/Profile"
               className={(e) => (e.isActive ? "border-1 block" : "")}
             >
               <div className="flex items-center gap-2">
