@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import Offcanvas from '../dashboard/Offcanvas';
 import DashNav from '../dashboard/DashNav';
 import PersonalInfo from './PersonalInfo';
-import AddressInfo from './AddressInfo'; // Import AddressInfo component
-import DevicesInfo from './DevicesInfo'; // Import DevicesInfo component
-import PaymentTestingInfo from './PaymentTestingInfo'; // Import PaymentTestingInfo component
-import SubscriptionInfo from './SubscriptionInfo'; // Import SubscriptionInfo component
-import InterestsInfo from './InterestsInfo'; // Import InterestsInfo component
-import StatisticsInfo from './StatisticsInfo'; // Import StatisticsInfo component
+import AddressInfo from './AddressInfo'; 
+import DevicesInfo from './DevicesInfo';
+import PaymentTestingInfo from './PaymentTestingInfo'; 
+import SubscriptionInfo from './SubscriptionInfo'; 
+import InterestsInfo from './InterestsInfo'; 
+import StatisticsInfo from './StatisticsInfo'; 
 
 const Profile = () => {
-    // State to manage the active tab
+    
     const [activeTab, setActiveTab] = useState('Personal');
 
-    // Function to set the active tab on click
+    
     const handleTabClick = (tabName) => {
         setActiveTab(tabName);
     };
 
-    // Conditionally render the content based on activeTab
+    
     const renderContent = () => {
         switch (activeTab) {
             case 'Personal':
@@ -100,7 +100,7 @@ const Profile = () => {
                     </ul>
                 </div>
                 <hr className='mb-3' />
-                {/* Render the appropriate component based on the active tab */}
+              
                 <div className="p-4">
                     {renderContent()}
                 </div>
