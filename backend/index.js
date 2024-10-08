@@ -1,13 +1,10 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const otpGenerator = require("otp-generator");
 const mysql = require("mysql2");
 const cors = require("cors");
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-
-
+const shortid = require("shortid");
 
 const app = express();
 app.use(cors());
@@ -30,8 +27,8 @@ const sendOTP = async (email, OTP) => {
     port: 587,
     secure: false,
     auth: {
-      user: "bvrit25@gmail.com", //process.env.AdminEmail,
-      pass: "sftf qyxo twwd qinb", //process.env.AdminPassword,
+      user: "bvrit25@gmail.com",
+      pass: "sftf qyxo twwd qinb",
     },
   });
 
@@ -59,10 +56,10 @@ const sendOTP = async (email, OTP) => {
 
 //connecting to mysql
 const connection = mysql.createConnection({
-  host: 'sql12.freesqldatabase.com',
-  user: 'sql12726723',
-  password: 'Q5k54hrklK',
-  database: 'sql12726723'
+  host: "localhost",
+  user: "root",
+  password: "123$5678",
+  database: "user_db",
 });
 
 connection.connect((err) => {
@@ -99,7 +96,6 @@ app.post("/signup/devices", (req, res) => {
   res.send(userData);
   // res.send("Device information received.");
 });
-
 app.post("/signup/password", async (req, res) => {
   const { password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
@@ -109,14 +105,16 @@ app.post("/signup/password", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const otp = generateOTP();
+    const userId = shortid.generate();
 
     // Insert the user data into the database
     const query = `
       INSERT INTO tester
-      (first_name, last_name, email, dob, city, zip, country, computer, version, language, mobile, model, os, password, otp, otp_expiry, verified)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW() + INTERVAL 15 MINUTE, ?)
+      (userId,first_name, last_name, email, dob, city, zip, country, computer, version, language, mobile, model, os, password, otp, otp_expiry, verified)
+      VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW() + INTERVAL 15 MINUTE, ?)
     `;
     const values = [
+      userId,
       userData.firstName,
       userData.lastName,
       userData.userEmail,
@@ -158,6 +156,7 @@ app.post("/verify-otp", async (req, res) => {
       // Redirect to profile page (you can uncomment the redirect if needed)
       res.json({
         status: "success",
+        userId: userId,
         redirect: "/dashboard", // Indicate where to navigate
       });
 
@@ -173,10 +172,9 @@ app.post("/verify-otp", async (req, res) => {
 
 app.post("/login", (req, res) => {
   const { userEmail, password } = req.body;
-
   connection
     .promise()
-    .query("SELECT verified FROM tester WHERE email = ?", [userEmail])
+    .query("SELECT userId,verified FROM tester WHERE email = ?", [userEmail])
     .then(([rows]) => {
       if (rows.length > 0) {
         const user = rows[0];
@@ -185,8 +183,10 @@ app.post("/login", (req, res) => {
           // Call passwordcheck function, which returns a promise
           return passwordcheck(password, userEmail).then((check) => {
             if (check) {
+              const token = generateToken(userEmail);
               res.json({
                 status: "success",
+                userId: user.userId,
                 redirect: "/dashboard", // Indicate where to navigate
               });
             } else {
@@ -289,6 +289,31 @@ const verifyOTP = async (userOTP, userEmail) => {
     );
   });
 };
+
+app.get("/dashboard", (req, res) => {
+  res.json({ message: "Welcome to the dashboard!", user: req.user });
+});
+
+app.get("/getUserInfo/:id", (req, res) => {
+  const userId = req.params.id;
+
+  connection
+    .promise()
+    .query("SELECT * FROM tester WHERE userId = ?", [userId])
+    .then(([rows]) => {
+      if (rows.length > 0) {
+        res.json({
+          status: "success",
+          user: rows[0],
+        });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

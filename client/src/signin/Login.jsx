@@ -26,8 +26,7 @@ const Login = () => {
     }
 
     try {
-     
-      const response = await fetch(`${import.meta.env.VITE_REACT_DOMAIN}/login`, {
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +36,12 @@ const Login = () => {
 
       const result = await response.json();
       console.log("Response from server:", result);
-      if (result.status === "success") {
+
+      if (response.ok && result.status === "success") {
+        // Store the token in localStorage
+        localStorage.setItem("userId", result.userId);
+        console.log(result.userId);
+        // Redirect to the dashboard
         navigate("/dashboard");
       } else {
         setMessage(result.message || "Login failed.");

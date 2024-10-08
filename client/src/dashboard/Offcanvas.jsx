@@ -1,26 +1,34 @@
 import React, { useState } from "react";
 import DashFooter from "./DashFooter";
-import { Link, NavLink } from "react-router-dom";
-import { verticalNav } from "../constants";
-import { IoIosArrowDown } from "react-icons/io";
-
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { GrResources } from "react-icons/gr";
 import { GrProjects } from "react-icons/gr";
 import { MdPayment } from "react-icons/md";
-import { GoProjectRoadmap } from "react-icons/go";
 import { GiCycle } from "react-icons/gi";
+import { useDataContext } from "../DataContext";
 
 const Offcanvas = () => {
   const [show, setShow] = useState(false);
+  const { userData, resetUserData } = useDataContext();
+  const fullname = `${userData.first_name} ${userData.last_name}`;
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    localStorage.removeItem("userID");
+    localStorage.removeItem("token");
+    console.log("User signed out");
+    resetUserData();
+    navigate("/");
+  };
 
   return (
-    <aside className="fixed top-0 left-0 w-64 h-screen  bg-gray-800 text-white  p-6 flex flex-col z-50">
+    <aside className="fixed top-0 left-0 w-64 h-screen bg-gray-800 text-white p-6 flex flex-col z-50">
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">TestersHive</h2>
-        <p className="text-sm">harshith sai</p>
-        <p className="text-sm">Tester ID: 4834869</p>
+        <p className="text-sm">{fullname}</p>
+        <p className="text-sm">Tester ID: {userData.userId}</p>
         <p className="mt-2 text-xs text-gray-400">UNRATED</p>
       </div>
 
@@ -48,30 +56,13 @@ const Offcanvas = () => {
               </div>
             </NavLink>
           </li>
-          {/* {show ? (
-            <div className="text-xs flex flex-col pt-3 pb-3">
-              {verticalNav.map((id, ans) => (
-                <NavLink
-                  to={id.to}
-                  key={ans}
-                  className={(e) =>
-                    e.isActive ? "pt-1 underline-offset-1 show" : ""
-                  }
-                >
-                  {id.heading}
-                </NavLink>
-              ))}
-            </div>
-          ) : (
-            ""
-          )} */}
           <li className="mb-2 mt-5">
             <NavLink
               to="/academy"
               className={(e) => (e.isActive ? "border-1 block" : "")}
             >
               <div className="flex items-center gap-2">
-                <GrResources size={18}></GrResources>
+                <GrResources size={18} />
                 <span>Academy</span>
               </div>
             </NavLink>
@@ -93,7 +84,7 @@ const Offcanvas = () => {
               className={(e) => (e.isActive ? "border-1 block" : "")}
             >
               <div className="flex items-center gap-2">
-                <GrProjects size={18}></GrProjects>
+                <GrProjects size={18} />
                 <span>Projects</span>
               </div>
             </NavLink>
@@ -111,12 +102,9 @@ const Offcanvas = () => {
           </li>
 
           <li className="mb-2 mt-5">
-            <NavLink
-              to="/SignOut"
-              className={(e) => (e.isActive ? "border-1 block" : "")}
-            >
+            <button onClick={handleSignOut} className="text-left w-full">
               Sign Out
-            </NavLink>
+            </button>
           </li>
         </ul>
       </nav>

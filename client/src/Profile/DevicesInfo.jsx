@@ -1,47 +1,63 @@
-import React from 'react'
+import React from "react";
 import user1 from "../assets/profile-pictures/user1.jpg";
+import { useDataContext } from "../DataContext";
 
 const DevicesInfo = () => {
+  const { userData } = useDataContext();
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col justify-start items-center py-10">
       <div className="text-center text-4xl font-semibold mb-10 text-gray-800">
         <h1>Devices Info</h1>
       </div>
       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
-       {/* <img 
+        {/* <img 
           src={user1} 
           alt="User Profile" 
           className="w-48 h-48 rounded-full mb-5 md:mb-0 md:mr-10 shadow-lg" 
         />*/}
         <div className="mx-5 bg-white rounded-xl shadow-lg p-6 w-full md:w-80">
           <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Your Computer</h2>
-            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">Hp </div>
+            <h2 className="font-semibold text-lg text-gray-700">
+              Your Computer
+            </h2>
+            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
+              {userData.computer}
+            </div>
           </div>
           <div className="mb-5">
             <h2 className="font-semibold text-lg text-gray-700">Version</h2>
-            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">Windows 11</div>
+            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
+              {userData.version}
+            </div>
           </div>
           <div className="mb-5">
             <h2 className="font-semibold text-lg text-gray-700">Language</h2>
-            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">English</div>
+            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
+              {userData.language}
+            </div>
           </div>
           <div className="mb-5">
             <h2 className="font-semibold text-lg text-gray-700">Your Mobile</h2>
-            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">Iphone</div>
+            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
+              {userData.mobile}
+            </div>
           </div>
           <div className="mb-5">
             <h2 className="font-semibold text-lg text-gray-700">Model</h2>
-            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">16</div>
+            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
+              {userData.model}
+            </div>
           </div>
           <div className="mb-5">
             <h2 className="font-semibold text-lg text-gray-700">Os</h2>
-            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">Ios</div>
+            <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
+              {userData.os}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DevicesInfo
+export default DevicesInfo;
