@@ -183,7 +183,6 @@ app.post("/login", (req, res) => {
           // Call passwordcheck function, which returns a promise
           return passwordcheck(password, userEmail).then((check) => {
             if (check) {
-              const token = generateToken(userEmail);
               res.json({
                 status: "success",
                 userId: user.userId,
