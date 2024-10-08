@@ -4,7 +4,7 @@ const InterestsInfo = () => {
     const [hobbies, setHobbies] = useState('Select');
     const [gambling, setGambling] = useState('Select');
     const [fitness, setFitness] = useState('Select');
-    const [willing, setWilling] = useState(null); // Set null for no initial selection
+    const [willing, setWilling] = useState(null); 
 
     return (
         <div className="p-8 bg-blue-50 min-h-screen">
