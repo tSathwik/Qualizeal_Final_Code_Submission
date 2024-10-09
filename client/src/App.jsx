@@ -40,41 +40,43 @@ import { FaArrowUp } from "react-icons/fa";
 import Testcycle from "./Test_Cycles/Testcycle";
 import Profile from "./Profile/Profile";
 import PersonalInfo from "./Profile/PersonalInfo";
-
+import { DataProvider } from "./DataContext";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />}></Route>
-      <Route path="/AboutUs" element={<Aboutus />}></Route>
-      <Route path="/Resources" element={<Resource />}></Route>
-      <Route path="/Why" element={<Whyterhive />}></Route>
-      <Route path="/Privacy" element={<PrivacyPage />}></Route>
-      <Route path="/Terms" element={<TermsPage></TermsPage>}></Route>
-      <Route path="/Guide" element={<GuidePage></GuidePage>}></Route>
-      <Route path="/help" element={<HelpPage />}></Route>
-      <Route path="/BioGraph" element={<Bio></Bio>}></Route>
-      <Route path="/Personal" element={<Personal />}></Route>
-      <Route path="/address" element={<Address />}></Route>
-      <Route path="/devices" element={<Devices />}></Route>
-      <Route path="/complete" element={<Complete />}></Route>
-      <Route path="/login" element={<Login />}></Route>
-      <Route path="/contactus" element={<ContactUs />}></Route>
-      <Route path="/otp" element={<Otp />}></Route>
-      <Route path="/dashboard" element={<Dashboard />}></Route>
-      <Route path="/academy" element={<Academy />}></Route>
-      <Route path="/cooikes" element={<Cookie />}></Route>
-      <Route path="/guidlines" element={<Guidlines />}></Route>
-      <Route path="/policy" element={<Policy />}></Route>
-      <Route path="/Payment" element={<Money></Money>}></Route>
-      <Route path="/Profile" element={<Profile/>}></Route>
-      <Route
-        path="/ProjectMatter"
-        element={<ProjectsSection></ProjectsSection>}
-      ></Route>
-      <Route path="/DetailMatter/:id" element={<Mat></Mat>}></Route>
-      <Route path="/Testcycle" element={<Test></Test>}></Route>
-    </Routes>
+    <DataProvider>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/AboutUs" element={<Aboutus />}></Route>
+        <Route path="/Resources" element={<Resource />}></Route>
+        <Route path="/Why" element={<Whyterhive />}></Route>
+        <Route path="/Privacy" element={<PrivacyPage />}></Route>
+        <Route path="/Terms" element={<TermsPage></TermsPage>}></Route>
+        <Route path="/Guide" element={<GuidePage></GuidePage>}></Route>
+        <Route path="/help" element={<HelpPage />}></Route>
+        <Route path="/BioGraph" element={<Bio></Bio>}></Route>
+        <Route path="/Personal" element={<Personal />}></Route>
+        <Route path="/address" element={<Address />}></Route>
+        <Route path="/devices" element={<Devices />}></Route>
+        <Route path="/complete" element={<Complete />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/contactus" element={<ContactUs />}></Route>
+        <Route path="/otp" element={<Otp />}></Route>
+        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/academy" element={<Academy />}></Route>
+        <Route path="/cooikes" element={<Cookie />}></Route>
+        <Route path="/guidlines" element={<Guidlines />}></Route>
+        <Route path="/policy" element={<Policy />}></Route>
+        <Route path="/Payment" element={<Money></Money>}></Route>
+        <Route path="/Profile" element={<Profile />}></Route>
+        <Route
+          path="/ProjectMatter"
+          element={<ProjectsSection></ProjectsSection>}
+        ></Route>
+        <Route path="/DetailMatter/:id" element={<Mat></Mat>}></Route>
+        <Route path="/Testcycle" element={<Test></Test>}></Route>
+      </Routes>
+    </DataProvider>
   );
 };
 function Home() {

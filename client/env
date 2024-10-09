@@ -1,2 +1,3 @@
-PORT=3000
-VITE_REACT_DOMAIN=""
+# This is for the React app, prefixed with REACT_APP_
+REACT_APP_PORT=3000
+REACT_APP_DOMAIN=http://localhost:3000

@@ -40,7 +40,7 @@ const Address = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_REACT_DOMAIN}/signup/address`, {
+      const response = await fetch("http://localhost:3000/signup/address", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
