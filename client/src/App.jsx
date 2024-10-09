@@ -32,6 +32,7 @@ import Offcanvas from "./dashboard/Offcanvas";
 import MainContent from "./dashboard/MainContent";
 import Payment from "./Payments/Payment";
 import DashNav from "./dashboard/DashNav";
+import Testcase from "./TestCases/Testcase";
 
 import ProjectHead from "./Projects/ProjectHead";
 import ProjectMatter from "./Projects/ProjectMatter";
@@ -68,6 +69,8 @@ const App = () => {
         <Route path="/guidlines" element={<Guidlines />}></Route>
         <Route path="/policy" element={<Policy />}></Route>
         <Route path="/Payment" element={<Money></Money>}></Route>
+        <Route path="/Testcase" element={<TestcaseTab></TestcaseTab>}></Route>
+
         <Route path="/Profile" element={<Profile />}></Route>
         <Route
           path="/ProjectMatter"
@@ -242,5 +245,20 @@ function Test() {
     </>
   );
 }
+
+function TestcaseTab() {
+  return (
+    <>
+      <div className="ml-64 p-6">
+        <DashNav val={"TestCases"} />
+      </div>
+      <div className="ml-64 min-h-screen flex">
+        <Offcanvas></Offcanvas>
+        <Testcase></Testcase>
+      </div>
+    </>
+  );
+}
+
 
 export default App;

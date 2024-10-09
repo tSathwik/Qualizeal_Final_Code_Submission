@@ -8,6 +8,8 @@ import { GrProjects } from "react-icons/gr";
 import { MdPayment } from "react-icons/md";
 import { GiCycle } from "react-icons/gi";
 import { useDataContext } from "../DataContext";
+import { GoCodeSquare } from 'react-icons/go';
+
 
 const Offcanvas = () => {
   const [show, setShow] = useState(false);
@@ -78,6 +80,18 @@ const Offcanvas = () => {
               </div>
             </NavLink>
           </li>
+          <li className="mb-2 mt-5">
+            <NavLink
+              to="/Testcase"
+              className={(e) => (e.isActive ? "border-1 block" : "")}
+            >
+              <div className="flex items-center gap-2">
+                <GoCodeSquare size={18} />
+                <span>Test Cases</span>
+              </div>
+            </NavLink>
+          </li>
+
           <li className="mb-2 mt-5">
             <NavLink
               to="/ProjectMatter"
