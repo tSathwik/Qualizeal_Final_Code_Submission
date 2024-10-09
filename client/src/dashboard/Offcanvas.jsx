@@ -9,8 +9,7 @@ import { MdPayment } from "react-icons/md";
 import { GiCycle } from "react-icons/gi";
 import { useDataContext } from "../DataContext";
 import { GoCodeSquare } from 'react-icons/go';
-
-
+import { FaUsers } from 'react-icons/fa'; 
 const Offcanvas = () => {
   const [show, setShow] = useState(false);
   const { userData, resetUserData } = useDataContext();
@@ -60,6 +59,17 @@ const Offcanvas = () => {
           </li>
           <li className="mb-2 mt-5">
             <NavLink
+              to="/CommunityProfile"
+              className={(e) => (e.isActive ? "border-1 block" : "")}
+            >
+              <div className="flex items-center gap-2">
+                <FaUsers size={18} /> 
+                <span>Community Profile</span>
+              </div>
+            </NavLink>
+          </li>
+          <li className="mb-2 mt-5">
+            <NavLink
               to="/academy"
               className={(e) => (e.isActive ? "border-1 block" : "")}
             >
@@ -90,7 +100,7 @@ const Offcanvas = () => {
                 <span>Test Cases</span>
               </div>
             </NavLink>
-          </li>
+          </li>
 
           <li className="mb-2 mt-5">
             <NavLink
