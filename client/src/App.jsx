@@ -68,7 +68,7 @@ const App = () => {
         <Route path="/academy" element={<Academy />}></Route>
         <Route path="/cooikes" element={<Cookie />}></Route>
         <Route path="/guidlines" element={<Guidlines />}></Route>
-        <Route path="/policy" element={<Policy />}></Route>
+        <Route path="/policy" element={<PolicyPage />}></Route>
         <Route path="/Payment" element={<Money></Money>}></Route>
         <Route path="/Testcase" element={<TestcaseTab></TestcaseTab>}></Route>
         <Route path="/CommunityProfile" element={<CommunityProfile/>}></Route>
@@ -261,5 +261,16 @@ function TestcaseTab() {
   );
 }
 
+function PolicyPage() {
+  return (
+    <>
+      <Offcanvas/>
+      <div className="max-w-6xl mx-auto pt-20 px-6">
+        <Policy></Policy>
+      </div>
+      
+    </>
+  );
+}
 
 export default App;
