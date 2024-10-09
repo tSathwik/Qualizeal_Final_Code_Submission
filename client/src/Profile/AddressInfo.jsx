@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDataContext } from "../DataContext";
+import map from "../assets/map.png";
 
 const AddressInfo = () => {
   const { userData } = useDataContext();
@@ -9,11 +10,11 @@ const AddressInfo = () => {
         <h1>Address Info</h1>
       </div>
       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
-        {/* <img 
-          src={user1} 
-          alt="User Profile" 
-          className="w-48 h-48 rounded-full mb-5 md:mb-0 md:mr-10 shadow-lg" 
-        />*/}
+        <img 
+          src={map} 
+          alt="map" 
+          className="w-auto h-60  mb-5 md:mb-0 mr-20 shadow-lg" 
+        />
         <div className="mx-5 bg-white rounded-xl shadow-xl p-6 w-full md:w-80">
           <div className="mb-5">
             <h2 className="font-semibold text-lg text-gray-700">City</h2>
