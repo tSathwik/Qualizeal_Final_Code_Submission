@@ -42,6 +42,7 @@ import Testcycle from "./Test_Cycles/Testcycle";
 import Profile from "./Profile/Profile";
 import PersonalInfo from "./Profile/PersonalInfo";
 import { DataProvider } from "./DataContext";
+import CommunityProfile from "./Profile/CommunityProfile";
 
 const App = () => {
   return (
@@ -70,7 +71,7 @@ const App = () => {
         <Route path="/policy" element={<Policy />}></Route>
         <Route path="/Payment" element={<Money></Money>}></Route>
         <Route path="/Testcase" element={<TestcaseTab></TestcaseTab>}></Route>
-
+        <Route path="/CommunityProfile" element={<CommunityProfile/>}></Route>
         <Route path="/Profile" element={<Profile />}></Route>
         <Route
           path="/ProjectMatter"
