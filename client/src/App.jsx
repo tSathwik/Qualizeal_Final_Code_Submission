@@ -26,6 +26,7 @@ import Help from "./components/Help";
 import Dashboard from "./dashboard/Dashboard";
 import Academy from "./dashboard/Academy";
 import { Cookie } from "lucide-react";
+import Conditions from "./dashboard/Conditions";
 import Guidlines from "./dashboard/Guidlines";
 import Policy from "./dashboard/Policy";
 import Offcanvas from "./dashboard/Offcanvas";
@@ -67,7 +68,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/academy" element={<Academy />}></Route>
         <Route path="/cooikes" element={<Cookie />}></Route>
-        <Route path="/guidlines" element={<Guidlines />}></Route>
+        <Route path="/conditions" element={<ConditionsPage />}></Route>
+        <Route path="/guidlines" element={<GuidlinesPage />}></Route>
         <Route path="/policy" element={<PolicyPage />}></Route>
         <Route path="/Payment" element={<Money></Money>}></Route>
         <Route path="/Testcase" element={<TestcaseTab></TestcaseTab>}></Route>
@@ -265,7 +267,7 @@ function PolicyPage() {
   return (
     <>
       <Offcanvas/>
-      <div className="max-w-6xl mx-auto pt-20 px-6">
+      <div className=" max-w-6xl mx-auto pt-20 px-6">
         <Policy></Policy>
       </div>
       
@@ -273,4 +275,27 @@ function PolicyPage() {
   );
 }
 
+function GuidlinesPage() {
+  return (
+    <>
+      <Offcanvas/>
+      <div className=" max-w-6xl mx-auto pt-20 px-6">
+        <Guidlines></Guidlines>
+      </div>
+      
+    </>
+  );
+}
+
+function ConditionsPage() {
+  return (
+    <>
+      <Offcanvas/>
+      <div className=" max-w-6xl mx-auto pt-20 px-6">
+        <Conditions></Conditions>
+      </div>
+      
+    </>
+  );
+}
 export default App;

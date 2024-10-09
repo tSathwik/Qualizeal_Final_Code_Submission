@@ -7,12 +7,12 @@ const DashFooter = () => {
       <ul className="space-y-2">
         <li > 
           <div className="hover:text-white">
-            <NavLink to="/Guide"> TestersHive Guidelines </NavLink> 
+            <NavLink to="/Guidlines"> TestersHive Guidelines </NavLink> 
           </div>
         </li>
         <li>
         <div className="hover:text-white">
-            <NavLink to="/Terms"> Terms & Conditions </NavLink> 
+            <NavLink to="/Conditions"> Terms & Conditions </NavLink> 
           </div>
         </li>
         <li>
