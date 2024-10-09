@@ -92,9 +92,9 @@ const MainContent = () => {
           </div>
         </div>
 
-       
+
         {/* My Devices */}
-        <div className="bg-white p-6 rounded-lg shadow-lg lg:col-span-1">
+        {/* <div className="bg-white p-6 rounded-lg shadow-lg lg:col-span-1">
           <h2 className="text-lg font-semibold mb-4">My Devices</h2>
           <div className="flex items-center space-x-2">
             <HiOutlineDesktopComputer className="text-gray-600 text-xl" />
@@ -103,7 +103,7 @@ const MainContent = () => {
           <a href="#" className="text-blue-500 mt-4 inline-block hover:underline">
             + Add devices
           </a>
-        </div>
+        </div> */}
       </div>
 
       {/* My Activity */}
