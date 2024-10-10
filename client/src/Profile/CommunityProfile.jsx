@@ -2,6 +2,7 @@ import React from 'react';
 import DashNav from '../dashboard/DashNav';
 import Offcanvas from '../dashboard/Offcanvas';
 import AboutCommunity from './AboutCommunity';
+import user1 from "../assets/profile-pictures/user1.jpg";
 
 
 const CommunityProfile = () => {
@@ -62,7 +63,7 @@ const CommunityProfile = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-lg text-center">
               <img
-                src="https://via.placeholder.com/150"
+                src={user1}
                 alt="Member Avatar"
                 className="w-24 h-24 rounded-full mx-auto mb-3"
               />
@@ -71,7 +72,7 @@ const CommunityProfile = () => {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg text-center">
               <img
-                src="https://via.placeholder.com/150"
+                src={user1}
                 alt="Member Avatar"
                 className="w-24 h-24 rounded-full mx-auto mb-3"
               />
@@ -80,7 +81,7 @@ const CommunityProfile = () => {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg text-center">
               <img
-                src="https://via.placeholder.com/150"
+                src={user1}
                 alt="Member Avatar"
                 className="w-24 h-24 rounded-full mx-auto mb-3"
               />
