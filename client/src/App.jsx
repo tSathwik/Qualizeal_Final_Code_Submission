@@ -238,7 +238,7 @@ function Mat() {
 function Test() {
   return (
     <>
-      <div className="ml-64 p-6">
+      <div className="ml-64 p-4 bg-gray-100">
         <DashNav val={"Test Cycles"} />
       </div>
       <div className="ml-64 min-h-screen flex">
@@ -252,7 +252,7 @@ function Test() {
 function TestcaseTab() {
   return (
     <>
-      <div className="ml-64 p-6">
+      <div className="ml-64 p-4 bg-gray-100">
         <DashNav val={"TestCases"} />
       </div>
       <div className="ml-64 min-h-screen flex">
