@@ -9,7 +9,9 @@ import { MdPayment } from "react-icons/md";
 import { GiCycle } from "react-icons/gi";
 import { useDataContext } from "../DataContext";
 import { GoCodeSquare } from 'react-icons/go';
-import { FaUsers } from 'react-icons/fa'; 
+import { FaUsers } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
+
 const Offcanvas = () => {
   const [show, setShow] = useState(false);
   const { userData, resetUserData } = useDataContext();
@@ -126,8 +128,9 @@ const Offcanvas = () => {
           </li>
 
           <li className="mb-2 mt-5">
-            <button onClick={handleSignOut} className="text-left w-full">
-              Sign Out
+            <button onClick={handleSignOut} className="text-left w-full flex items-center gap-2">
+              <FiLogOut size={18} />
+              <span>Sign Out</span>
             </button>
           </li>
         </ul>
