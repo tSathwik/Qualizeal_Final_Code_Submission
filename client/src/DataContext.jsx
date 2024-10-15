@@ -49,8 +49,29 @@ export const DataProvider = ({ children }) => {
     setUserData({});
   };
 
+  const updateUserData = async (data) => {
+    try {
+      const response = await fetch(`http://localhost:3000/updateUserInfo/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (response.ok && result.status === "success") {
+        setUserData(result.user); // Assuming the updated user data comes back
+        console.log("User data updated:", result.user);
+      } else {
+        console.error("Failed to update user data:", result.message);
+      }
+    } catch (err) {
+      console.error("Error updating user data:", err);
+    }
+  };
+
   return (
-    <DataContext.Provider value={{ userData, updateUserId, resetUserData }}>
+    <DataContext.Provider value={{ userData, updateUserId, resetUserData , updateUserData}}>
       {children}
     </DataContext.Provider>
   );
