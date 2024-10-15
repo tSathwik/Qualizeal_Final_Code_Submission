@@ -44,6 +44,7 @@ import Profile from "./Profile/Profile";
 import PersonalInfo from "./Profile/PersonalInfo";
 import { DataProvider } from "./DataContext";
 import CommunityProfile from "./Profile/CommunityProfile";
+import AcademyPage from "./Academy/AcademyPage";
 
 const App = () => {
   return (
@@ -75,6 +76,7 @@ const App = () => {
         <Route path="/Testcase" element={<TestcaseTab></TestcaseTab>}></Route>
         <Route path="/CommunityProfile" element={<CommunityProfile/>}></Route>
         <Route path="/Profile" element={<Profile />}></Route>
+        <Route path="/course" element={<AcademyPage/>}></Route>
         <Route
           path="/ProjectMatter"
           element={<ProjectsSection></ProjectsSection>}
