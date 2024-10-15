@@ -1,25 +1,29 @@
-import React from "react";
-
-import { HiOutlineDesktopComputer } from "react-icons/hi";
+import React, { useEffect, useState } from "react";
 import DashNav from "./DashNav";
 import AllData from "./AllData";
 import MyActivity from "./MyActivity";
 import { useNavigate } from "react-router-dom";
 
-
 const MainContent = () => {
-
   const navigate = useNavigate();
 
-  const handleclick = () => {
-    navigate("/profile")
-  }
+  
+  const [projectsChecked, setProjectsChecked] = useState(false);
 
+  useEffect(() => {
+    
+    const checkedStatus = localStorage.getItem("projectsChecked");
+    setProjectsChecked(checkedStatus === "true");
+  }, []);
+
+  const handleClick = () => {
+    navigate("/profile");
+  };
 
   return (
     <div className="flex-1 bg-gray-100 p-6">
       <DashNav val={"DashBoard"} />
-      <AllData></AllData>
+      <AllData />
       {/* Main Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* New Joiner Checklist */}
@@ -43,7 +47,12 @@ const MainContent = () => {
               Complete your Profile
             </li>
             <li className="flex items-center">
-              <input type="checkbox" disabled className="mr-2" />
+              <input
+                type="checkbox"
+                checked={projectsChecked}
+                disabled
+                className="mr-2"
+              />
               Scan the Projects Board
             </li>
             <li className="flex items-center">
@@ -81,7 +90,7 @@ const MainContent = () => {
                   strokeLinecap="round"
                 />
                 <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%">
                     <stop offset="0%" style={{ stopColor: "#00abff", stopOpacity: 1 }} />
                     <stop offset="100%" style={{ stopColor: "#00d4ff", stopOpacity: 1 }} />
                   </linearGradient>
@@ -91,14 +100,16 @@ const MainContent = () => {
                 29%
               </span>
             </div>
-            <button onClick={handleclick} className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-5 py-2 mt-4 rounded-lg shadow-md transition-all duration-300 transform hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:shadow-lg hover:scale-105">
+            <button
+              onClick={handleClick}
+              className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-5 py-2 mt-4 rounded-lg shadow-md transition-all duration-300 transform hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:shadow-lg hover:scale-105"
+            >
               Complete my profile
             </button>
           </div>
         </div>
-
       </div>
-      <MyActivity></MyActivity>
+      <MyActivity />
     </div>
   );
 };
