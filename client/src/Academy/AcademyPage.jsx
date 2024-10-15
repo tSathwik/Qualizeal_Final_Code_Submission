@@ -29,7 +29,7 @@ const AcademyPage = () => {
     </div>
     <div className="ml-64 min-h-screen">
     <Offcanvas/>
-    <div className="flex flex-col lg:flex-row gap-6 p-6 bg-gray-100 min-h-screen">
+    <div className="flex flex-col lg:flex-row gap-6 p-6  min-h-screen">
     
       <div className="bg-white p-6 rounded-lg shadow-lg flex-1">
         <h1 className="text-2xl font-bold mb-4">Welcome to TestersHive Academy</h1>
