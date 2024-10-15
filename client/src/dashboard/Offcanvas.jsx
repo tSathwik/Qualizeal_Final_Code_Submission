@@ -9,12 +9,14 @@ import { GiCycle } from "react-icons/gi";
 import { GoCodeSquare } from "react-icons/go";
 import { FaUsers } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { useDataContext } from "../DataContext";
 
 const Offcanvas = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const userData = JSON.parse(localStorage.getItem("userData")) || {};
+  const { userData } = useDataContext();
+
   const fullname = `${userData.first_name} ${userData.last_name}`;
 
   const handleSignOut = () => {
@@ -32,8 +34,8 @@ const Offcanvas = () => {
     <aside className="fixed top-0 left-0 w-64 h-screen bg-gray-800 text-white p-6 flex flex-col z-50">
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">TestersHive</h2>
-        <p className="text-sm">{fullname}</p>
-        <p className="text-sm">Tester ID: {userData.userId}</p>
+        <p className="text-sm">{fullname || "Guest User"}</p>
+        <p className="text-sm">Tester ID: {userData.userId || "123456"}</p>
         <p className="mt-2 text-xs text-gray-400">UNRATED</p>
       </div>
 

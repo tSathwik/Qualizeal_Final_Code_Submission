@@ -23,7 +23,7 @@ export const DataProvider = ({ children }) => {
 
         if (response.ok && result.status === "success") {
           setUserData(result.user);
-          console.log("User data set in context:", result.user);
+          console.log("User data set in context");
         } else {
           console.error("Failed to fetch user data:", result.message);
           setUserData({});
@@ -70,7 +70,7 @@ export const DataProvider = ({ children }) => {
           ...prevData,
           ...result.user,
         }));
-        console.log("Personal info updated in context:", result.user);
+        console.log("Personal info updated in context");
       } else {
         console.error("Failed to update personal info:", result.message);
       }
@@ -102,7 +102,7 @@ export const DataProvider = ({ children }) => {
           zip: updatedData.zip,
           country: updatedData.country,
         }));
-        console.log("Address info updated in context:", result.user);
+        console.log("Address info updated in context");
       } else {
         console.error("Failed to update address info:", result.message);
       }
@@ -137,7 +137,7 @@ export const DataProvider = ({ children }) => {
           model: updatedData.model,
           os: updatedData.os,
         }));
-        console.log("Device info updated in context:", result.user);
+        console.log("Device info updated in context");
       } else {
         console.error("Failed to update device info:", result.message);
       }

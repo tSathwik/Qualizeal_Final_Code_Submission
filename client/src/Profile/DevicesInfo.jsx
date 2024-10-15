@@ -16,7 +16,6 @@ const DevicesInfo = () => {
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
     if (!isEditing) {
-      // Reset form data when editing is canceled
       setFormData({
         computer: userData.computer || "",
         version: userData.version || "",
@@ -35,10 +34,10 @@ const DevicesInfo = () => {
 
   const handleSave = async () => {
     try {
-      await updateDeviceInfo(formData); // Ensure this is an async function
+      await updateDeviceInfo(formData);
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating user data:", error); // Handle error
+      console.error("Error updating user data:", error);
     }
   };
 

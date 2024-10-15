@@ -79,22 +79,19 @@ app.post("/signup/personal", (req, res) => {
     userEmail,
     dateOfBirth,
   };
-  res.send(userData);
-  // res.send("Personal information received.");
+  res.send("Personal information received");
 });
 
 app.post("/signup/address", (req, res) => {
   const { city, zip, country } = req.body;
   userData = { ...userData, city, zip, country };
-  res.send(userData);
-  // res.send("Address information received.");
+  res.send("Address information received");
 });
 
 app.post("/signup/devices", (req, res) => {
   const { computer, version, language, mobile, model, os } = req.body;
   userData = { ...userData, computer, version, language, mobile, model, os };
-  res.send(userData);
-  // res.send("Device information received.");
+  res.send("Device information received");
 });
 app.post("/signup/password", async (req, res) => {
   const { password, confirmPassword } = req.body;
@@ -153,11 +150,10 @@ app.post("/verify-otp", async (req, res) => {
   try {
     const isCorrect = await verifyOTP(otp, userData.userEmail);
     if (isCorrect) {
-      // Redirect to profile page (you can uncomment the redirect if needed)
       res.json({
         status: "success",
         userId: userId,
-        redirect: "/dashboard", // Indicate where to navigate
+        redirect: "/dashboard",
       });
 
       res.send("Verified successfully... redirecting to profile page");
@@ -180,13 +176,12 @@ app.post("/login", (req, res) => {
         const user = rows[0];
 
         if (user.verified) {
-          // Call passwordcheck function, which returns a promise
           return passwordcheck(password, userEmail).then((check) => {
             if (check) {
               res.json({
                 status: "success",
                 userId: user.userId,
-                redirect: "/dashboard", // Indicate where to navigate
+                redirect: "/dashboard",
               });
             } else {
               res.status(400).json({ message: "Wrong password" });
