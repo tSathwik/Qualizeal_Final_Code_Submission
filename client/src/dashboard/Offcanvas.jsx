@@ -16,7 +16,7 @@ const Offcanvas = () => {
   
   
   const userData = JSON.parse(localStorage.getItem("userData")) || {};
-  const fullname = `${userData.first_name || "John"} ${userData.last_name || "Doe"}`;
+  const fullname = `${userData.first_name || "Guest"} ${userData.last_name || "123"}`;
 
   const handleSignOut = () => {
     localStorage.removeItem("userID");
