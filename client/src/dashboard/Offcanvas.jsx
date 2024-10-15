@@ -1,29 +1,34 @@
 import React, { useState } from "react";
 import DashFooter from "./DashFooter";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { GrResources } from "react-icons/gr";
-import { GrProjects } from "react-icons/gr";
+import { GrResources, GrProjects } from "react-icons/gr";
 import { MdPayment } from "react-icons/md";
 import { GiCycle } from "react-icons/gi";
-import { useDataContext } from "../DataContext";
 import { GoCodeSquare } from 'react-icons/go';
 import { FaUsers } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 
 const Offcanvas = () => {
   const [show, setShow] = useState(false);
-  const { userData, resetUserData } = useDataContext();
-  const fullname = `${userData.first_name} ${userData.last_name}`;
   const navigate = useNavigate();
+  
+  
+  const userData = JSON.parse(localStorage.getItem("userData")) || {};
+  const fullname = `${userData.first_name || "Guest"} ${userData.last_name || "123"}`;
 
   const handleSignOut = () => {
     localStorage.removeItem("userID");
     localStorage.removeItem("token");
     console.log("User signed out");
-    resetUserData();
     navigate("/");
+  };
+
+ 
+  const handleProjectClick = () => {
+    
+    localStorage.setItem("projectsChecked", "true");
   };
 
   return (
@@ -31,7 +36,7 @@ const Offcanvas = () => {
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">TestersHive</h2>
         <p className="text-sm">{fullname}</p>
-        <p className="text-sm">Tester ID: {userData.userId}</p>
+        <p className="text-sm">Tester ID: {userData.userId || "12345"}</p>
         <p className="mt-2 text-xs text-gray-400">UNRATED</p>
       </div>
 
@@ -103,11 +108,11 @@ const Offcanvas = () => {
               </div>
             </NavLink>
           </li>
-
           <li className="mb-2 mt-5">
             <NavLink
               to="/ProjectMatter"
               className={(e) => (e.isActive ? "border-1 block" : "")}
+              onClick={handleProjectClick} 
             >
               <div className="flex items-center gap-2">
                 <GrProjects size={18} />
@@ -126,7 +131,6 @@ const Offcanvas = () => {
               </div>
             </NavLink>
           </li>
-
           <li className="mb-2 mt-5">
             <button onClick={handleSignOut} className="text-left w-full flex items-center gap-2">
               <FiLogOut size={18} />

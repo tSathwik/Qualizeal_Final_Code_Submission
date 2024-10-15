@@ -12,7 +12,7 @@ const PersonalInfo = () => {
     dob: userData.dob || "",
   });
 
-  // Toggle edit mode
+  
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
     if (isEditing) {
@@ -26,7 +26,7 @@ const PersonalInfo = () => {
     }
   };
 
-  // Handle input changes
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
