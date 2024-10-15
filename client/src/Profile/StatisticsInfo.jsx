@@ -13,7 +13,7 @@ const StatisticsInfo = () => {
     <div className="flex justify-around gap-10">
     
       <div className="bg-white shadow-md p-5 rounded-lg">
-        <h2 className="text-xl font-bold mb-5">RIGHT NOW ON UTEST</h2>
+        <h2 className="text-xl font-bold mb-5">RIGHT NOW ON TestersHive</h2>
         <div className="mb-3">
           <p>Testers</p>
           <p className="text-2xl font-bold">2,070,664</p>

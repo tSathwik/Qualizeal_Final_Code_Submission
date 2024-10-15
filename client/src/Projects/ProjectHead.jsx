@@ -11,7 +11,7 @@ const ProjectHead = () => {
               <Typewriter
                 options={{
                   strings:
-                    "Keep your uTest profile updated for access to exclusive opportunities.",
+                    "Keep your TestersHive profile updated for access to exclusive opportunities.",
                   autoStart: true,
                 }}
               />
@@ -25,7 +25,7 @@ const ProjectHead = () => {
       <div>
         <p className="px-16 pt-10 text-center text-xs">
           Please know, the Projects Board shows only a small fraction of the
-          paid project opportunities uTest has to offer! Increase your chances
+          paid project opportunities TestersHive has to offer! Increase your chances
           at being matched with paid project opportunities by keeping your
           Tester Profile complete and up-to-date!
         </p>

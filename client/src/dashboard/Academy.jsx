@@ -4,17 +4,17 @@ import DashNav from "./DashNav";
 import Cards from "./Cards";
 
 const cardData = [
-  { no: "1", title: "Introduction to uTest", desc: "Learn about TestersHive." },
+  { no: "1", title: "Introduction to TestersHive", desc: "Learn about TestersHive." },
   {
     no: "2",
-    title: "uTest.com Navigation",
-    desc: "This course teaches how to navigate inside uTest.com",
+    title: "TestersHive.com Navigation",
+    desc: "This course teaches how to navigate inside TestersHive.com",
   },
-  { no: "3", title: "uTest Mobile App", desc: "Learn about TestersHive." },
-  { no: "4", title: "uTest Basics", desc: "uTest Basics." },
+  { no: "3", title: "TestersHive Mobile App", desc: "Learn about TestersHive." },
+  { no: "4", title: "TestersHive Basics", desc: "TestersHive Basics." },
   { no: "5", title: "Testing Basics", desc: "Learn about TestersHive." },
   { no: "6", title: "AcademyBugs.com", desc: "Learn about TestersHive." },
-  { no: "7", title: "uTest Cycle Process", desc: "Learn about TestersHive." },
+  { no: "7", title: "TestersHive Cycle Process", desc: "Learn about TestersHive." },
   {
     no: "8",
     title: "Slots, Test Cases and Reviews",
@@ -34,7 +34,7 @@ const cardData = [
   {
     no: "16",
     title: "Academy Tips and Tricks",
-    desc: "Learn how to succeed at uTest and become a very good tester. After learning all the basics, it is highly recommended to review this track again.",
+    desc: "Learn how to succeed at TestersHive and become a very good tester. After learning all the basics, it is highly recommended to review this track again.",
   },
   {
     no: "16",
@@ -89,17 +89,17 @@ const cardData = [
   {
     no: "26",
     title: "Voice Testing",
-    desc: "Learn the Voice Testing basics at uTest.",
+    desc: "Learn the Voice Testing basics at TestersHive.",
   },
   {
     no: "27",
     title: "Localization Testing",
-    desc: "Learn the Localization Testing basics at uTest.",
+    desc: "Learn the Localization Testing basics at TestersHive.",
   },
   {
     no: "28",
     title: "Streaming Apps Testing",
-    desc: "Learn the streaming and live streaming testing basics at uTest.",
+    desc: "Learn the streaming and live streaming testing basics at TestersHive.",
   },
   {
     no: "29",
