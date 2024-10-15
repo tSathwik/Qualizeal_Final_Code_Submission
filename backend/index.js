@@ -314,6 +314,193 @@ app.get("/getUserInfo/:id", (req, res) => {
     });
 });
 
+// Update user information
+// app.put("/updatePersonalInfo/:id", async (req, res) => {
+//   const userId = req.params.id; // Get user ID from the URL
+//   const { first_name, last_name, email, dob } = req.body; // Destructure updated data from the request body
+
+//   // SQL query to update user information
+//   const query = `
+//     UPDATE tester
+//     SET first_name = ?, last_name = ?, email = ?, dob = ?
+//     WHERE userId = ?
+//   `;
+//   const values = [first_name, last_name, email, dob, userId];
+
+//   connection.query(query, values, (err, results) => {
+//     if (err) {
+//       console.error("Error updating user data:", err);
+//       return res
+//         .status(500)
+//         .json({ status: "error", message: "Internal server error" });
+//     }
+
+//     if (results.affectedRows === 0) {
+//       return res
+//         .status(404)
+//         .json({ status: "error", message: "User not found" });
+//     }
+//     res.status(200).json({
+//       status: "success",
+//       user: {
+//         first_name,
+//         last_name,
+//         email,
+//         dob,
+//       },
+//     });
+//   });
+// });
+
+// app.put("/updateAddressInfo/:id", async (req, res) => {
+//   const userId = req.params.id; // Get user ID from the URL
+//   const { city, zip, country } = req.body; // Destructure updated data from the request body
+
+//   // SQL query to update user information
+//   const query = `
+//     UPDATE tester
+//     SET city=?, zip=?, country = ?
+//     WHERE userId = ?
+//   `;
+//   const values = [city, zip, country, userId];
+
+//   connection.query(query, values, (err, results) => {
+//     if (err) {
+//       console.error("Error updating user data:", err);
+//       return res
+//         .status(500)
+//         .json({ status: "error", message: "Internal server error" });
+//     }
+
+//     if (results.affectedRows === 0) {
+//       return res
+//         .status(404)
+//         .json({ status: "error", message: "User not found" });
+//     }
+//     res.status(200).json({
+//       status: "success",
+//       user: {
+//         first_name,
+//         last_name,
+//         email,
+//         dob,
+//       },
+//     });
+//   });
+// });
+
+// Update user information
+app.put("/updatePersonalInfo/:id", async (req, res) => {
+  const userId = req.params.id;
+  const { first_name, last_name, email, dob } = req.body;
+
+  const query = `
+    UPDATE tester 
+    SET first_name = ?, last_name = ?, email = ?, dob = ?
+    WHERE userId = ?
+  `;
+  const values = [first_name, last_name, email, dob, userId];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error("Error updating personal data:", err);
+      return res
+        .status(500)
+        .json({ status: "error", message: "Internal server error" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
+    }
+    res.status(200).json({
+      status: "success",
+      user: {
+        first_name,
+        last_name,
+        email,
+        dob,
+      },
+    });
+  });
+});
+
+// Update address information
+app.put("/updateAddressInfo/:id", async (req, res) => {
+  const userId = req.params.id;
+  const { city, zip, country } = req.body;
+
+  const query = `
+    UPDATE tester 
+    SET city=?, zip=?, country=?
+    WHERE userId = ?
+  `;
+  const values = [city, zip, country, userId];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error("Error updating address data:", err);
+      return res
+        .status(500)
+        .json({ status: "error", message: "Internal server error" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
+    }
+    res.status(200).json({
+      status: "success",
+      user: {
+        city,
+        zip,
+        country,
+      },
+    });
+  });
+});
+
+// Update device information
+app.put("/updateDeviceInfo/:id", async (req, res) => {
+  const userId = req.params.id;
+  const { computer, version, language, mobile, model, os } = req.body;
+
+  const query = `
+    UPDATE tester 
+    SET computer=?, version=?, language=?, mobile=?, model=?, os=?
+    WHERE userId = ?
+  `;
+  const values = [computer, version, language, mobile, model, os, userId];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error("Error updating device data:", err);
+      return res
+        .status(500)
+        .json({ status: "error", message: "Internal server error" });
+    }
+
+    if (results.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
+    }
+    res.status(200).json({
+      status: "success",
+      user: {
+        computer,
+        version,
+        language,
+        mobile,
+        model,
+        os,
+      },
+    });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

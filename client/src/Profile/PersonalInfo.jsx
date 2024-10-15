@@ -3,18 +3,27 @@ import { useDataContext } from "../DataContext";
 import user1 from "../assets/profile-pictures/user1.jpg";
 
 const PersonalInfo = () => {
-  const { userData, updateUserData } = useDataContext(); 
+  const { userData, updatePersonalInfo } = useDataContext();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    first_name: userData.first_name,
-    last_name: userData.last_name,
-    email: userData.email,
-    dob: userData.dob,
+    first_name: userData.first_name || "",
+    last_name: userData.last_name || "",
+    email: userData.email || "",
+    dob: userData.dob || "",
   });
 
   // Toggle edit mode
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
+    if (isEditing) {
+      // Reset form data to current userData when cancelling edit mode
+      setFormData({
+        first_name: userData.first_name || "",
+        last_name: userData.last_name || "",
+        email: userData.email || "",
+        dob: userData.dob || "",
+      });
+    }
   };
 
   // Handle input changes
@@ -23,9 +32,8 @@ const PersonalInfo = () => {
     setFormData({ ...formData, [name]: value });
   };
 
- 
   const handleSave = () => {
-    updateUserData(formData); 
+    updatePersonalInfo(formData); // This will call the context function to update data
     setIsEditing(false);
   };
 
@@ -41,7 +49,6 @@ const PersonalInfo = () => {
           className="w-48 h-48 rounded-full mb-5 md:mb-0 md:mr-10 shadow-lg"
         />
         <div className="mx-5 bg-white rounded-xl shadow-lg p-6 w-full md:w-80">
-          
           <div className="flex justify-end mb-4">
             <button
               onClick={toggleEditMode}
@@ -107,7 +114,9 @@ const PersonalInfo = () => {
 
           {/* Date of Birth */}
           <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Date of Birth</h2>
+            <h2 className="font-semibold text-lg text-gray-700">
+              Date of Birth
+            </h2>
             {isEditing ? (
               <input
                 type="date"
@@ -118,7 +127,9 @@ const PersonalInfo = () => {
               />
             ) : (
               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.dob ? new Date(userData.dob).toLocaleDateString() : "N/A"}
+                {userData.dob
+                  ? new Date(userData.dob).toLocaleDateString()
+                  : "N/A"}
               </div>
             )}
           </div>

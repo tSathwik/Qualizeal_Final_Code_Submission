@@ -3,17 +3,23 @@ import { useDataContext } from "../DataContext";
 import map from "../assets/map.png";
 
 const AddressInfo = () => {
-  const { userData, updateUserData } = useDataContext(); 
+  const { userData, updateAddressInfo } = useDataContext(); // Change to use separate function
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    city: userData.city,
-    zip: userData.zip,
-    country: userData.country,
+    city: userData.city || "",
+    zip: userData.zip || "",
+    country: userData.country || "",
   });
-
 
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
+    if (isEditing) {
+      setFormData({
+        city: userData.city || "",
+        zip: userData.zip || "",
+        country: userData.country || "",
+      });
+    }
   };
 
   const handleInputChange = (e) => {
@@ -21,9 +27,8 @@ const AddressInfo = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
-  const handleSave = () => {
-    updateUserData(formData); 
+  const handleSave = async () => {
+    await updateAddressInfo(formData); // Use specific function
     setIsEditing(false);
   };
 
@@ -33,10 +38,10 @@ const AddressInfo = () => {
         <h1>Address Info</h1>
       </div>
       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
-        <img 
-          src={map} 
-          alt="map" 
-          className="w-auto h-60 mb-5 md:mb-0 mr-20 shadow-lg" 
+        <img
+          src={map}
+          alt="map"
+          className="w-auto h-60 mb-5 md:mb-0 mr-20 shadow-lg"
         />
         <div className="mx-5 bg-white rounded-xl shadow-xl p-6 w-full md:w-80">
           {/* Edit Button */}
@@ -69,7 +74,9 @@ const AddressInfo = () => {
 
           {/* Zip or Postal Code */}
           <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Zip or Postal Code</h2>
+            <h2 className="font-semibold text-lg text-gray-700">
+              Zip or Postal Code
+            </h2>
             {isEditing ? (
               <input
                 type="text"

@@ -2,20 +2,30 @@ import React, { useState } from "react";
 import { useDataContext } from "../DataContext";
 
 const DevicesInfo = () => {
-  const { userData, updateUserData } = useDataContext(); 
+  const { userData, updateDeviceInfo } = useDataContext();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    computer: userData.computer,
-    version: userData.version,
-    language: userData.language,
-    mobile: userData.mobile,
-    model: userData.model,
-    os: userData.os,
+    computer: userData.computer || "",
+    version: userData.version || "",
+    language: userData.language || "",
+    mobile: userData.mobile || "",
+    model: userData.model || "",
+    os: userData.os || "",
   });
 
- 
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
+    if (!isEditing) {
+      // Reset form data when editing is canceled
+      setFormData({
+        computer: userData.computer || "",
+        version: userData.version || "",
+        language: userData.language || "",
+        mobile: userData.mobile || "",
+        model: userData.model || "",
+        os: userData.os || "",
+      });
+    }
   };
 
   const handleInputChange = (e) => {
@@ -23,10 +33,13 @@ const DevicesInfo = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  
-  const handleSave = () => {
-    updateUserData(formData); 
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      await updateDeviceInfo(formData); // Ensure this is an async function
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating user data:", error); // Handle error
+    }
   };
 
   return (
@@ -48,7 +61,9 @@ const DevicesInfo = () => {
 
           {/* Computer */}
           <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Your Computer</h2>
+            <h2 className="font-semibold text-lg text-gray-700">
+              Your Computer
+            </h2>
             {isEditing ? (
               <input
                 type="text"
