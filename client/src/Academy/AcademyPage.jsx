@@ -25,7 +25,7 @@ const AcademyPage = () => {
   return (
     <>
     <div className="ml-64 p-4 bg-gray-100">
-      <DashNav val={"Projects Board"} />
+      <DashNav val={"Courses"} />
     </div>
     <div className="ml-64 min-h-screen">
     <Offcanvas/>
