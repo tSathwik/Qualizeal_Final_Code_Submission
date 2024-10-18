@@ -22,6 +22,7 @@ const Offcanvas = () => {
   const handleSignOut = () => {
     localStorage.removeItem("userID");
     localStorage.removeItem("token");
+    localStorage.clear();
     console.log("User signed out");
     navigate("/");
   };

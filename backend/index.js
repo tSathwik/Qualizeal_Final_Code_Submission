@@ -5,10 +5,48 @@ const otpGenerator = require("otp-generator");
 const mysql = require("mysql2");
 const cors = require("cors");
 const shortid = require("shortid");
+const jwt = require("jsonwebtoken");
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const generateToken = (user) => {
+  return jwt.sign(
+    { userId: user.userId, email: user.email },
+    "yf1c2ddee1b2f3f9ab6613728b008a28dbd9c825b430d04bb672883d8b7fed99f68e8d3a354cf8fda754456ccde9afebcee124ae841ae093745b51ad2083e33fa", 
+    { expiresIn: "1h" } 
+  );
+};
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) {
+    console.log("No token provided");
+    // Check if the request expects HTML (i.e., it's a web request)
+    if (req.accepts('html')) {
+      return res.redirect("/login");
+    } else {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+  }
+
+  jwt.verify(token, "yf1c2ddee1b2f3f9ab6613728b008a28dbd9c825b430d04bb672883d8b7fed99f68e8d3a354cf8fda754456ccde9afebcee124ae841ae093745b51ad2083e33fa", (err, user) => {
+    if (err) {
+      console.log("Token verification failed");
+      return res.status(403).json({ message: "Forbidden" });
+    }
+    req.user = user; // Add user info to the request object
+    next();
+  });
+};
+
+
+
+
 
 // Generates 6 digit OTP
 function generateOTP() {
@@ -58,8 +96,8 @@ const sendOTP = async (email, OTP) => {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "123$5678",
-  database: "user_db",
+  password: "Srijamya@2570",
+  database: "emailverify",
 });
 
 connection.connect((err) => {
@@ -170,23 +208,23 @@ app.post("/login", (req, res) => {
   const { userEmail, password } = req.body;
   connection
     .promise()
-    .query("SELECT userId,verified FROM tester WHERE email = ?", [userEmail])
-    .then(([rows]) => {
+    .query("SELECT userId, verified, password FROM tester WHERE email = ?", [userEmail])
+    .then(async ([rows]) => {
       if (rows.length > 0) {
         const user = rows[0];
 
         if (user.verified) {
-          return passwordcheck(password, userEmail).then((check) => {
-            if (check) {
-              res.json({
-                status: "success",
-                userId: user.userId,
-                redirect: "/dashboard",
-              });
-            } else {
-              res.status(400).json({ message: "Wrong password" });
-            }
-          });
+          const passwordMatch = await bcrypt.compare(password, user.password);
+          if (passwordMatch) {
+            const token = generateToken({ userId: user.userId, email: userEmail });
+            res.json({
+              status: "success",
+              userId: user.userId,
+              token,
+            });
+          } else {
+            res.status(400).json({ message: "Wrong password" });
+          }
         } else {
           res.status(400).json({ message: "Email not verified" });
         }
@@ -198,6 +236,11 @@ app.post("/login", (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 });
+
+app.get("/dashboard", authenticateToken, (req, res) => {
+  res.json({ message: "Welcome to the dashboard!", user: req.user });
+});
+
 
 const passwordcheck = async (password, userEmail) => {
   return new Promise((resolve, reject) => {
@@ -284,9 +327,10 @@ const verifyOTP = async (userOTP, userEmail) => {
   });
 };
 
-app.get("/dashboard", (req, res) => {
+app.get("/dashboard", authenticateToken, (req, res) => {
   res.json({ message: "Welcome to the dashboard!", user: req.user });
 });
+
 
 app.get("/getUserInfo/:id", (req, res) => {
   const userId = req.params.id;
