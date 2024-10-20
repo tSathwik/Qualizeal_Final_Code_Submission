@@ -64,6 +64,7 @@ const Offcanvas = () => {
               </div>
             </NavLink>
           </li>
+          {/*
           <li className="mb-2 mt-5">
             <NavLink
               to="/CommunityProfile"
@@ -74,7 +75,7 @@ const Offcanvas = () => {
                 <span>Community Profile</span>
               </div>
             </NavLink>
-          </li>
+          </li>*/}
           <li className="mb-2 mt-5">
             <NavLink
               to="/academy"
