@@ -39,7 +39,10 @@ const Login = () => {
 
       if (response.ok && result.status === "success") {
         // Store the token in localStorage
+        console.log("Response from server:", result);
+
         localStorage.setItem("userId", result.userId);
+        localStorage.setItem("token", result.token);
         console.log(result.userId);
         // Redirect to the dashboard
         navigate("/dashboard");
