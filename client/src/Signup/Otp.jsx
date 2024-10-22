@@ -129,6 +129,8 @@ const Otp = () => {
       const result = await response.json();
       console.log("Response from server:", result);
       if (result.status === "success") {
+        localStorage.setItem("userId", result.userId);
+        localStorage.setItem("email", result.email);
         navigate("/dashboard");
       }
     } catch (error) {

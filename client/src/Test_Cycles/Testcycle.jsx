@@ -34,7 +34,7 @@ const Testcycle = () => {
   // }, []);
   const [testcycledata, gettestcycledata] = useState([]);
   const [showdata, showdatamore] = useState(null);
-  const email = "vaarunsingghh@gmail.com";
+  const email = localStorage.getItem("email");
   useEffect(() => {
     async function getData() {
       try {
@@ -51,7 +51,7 @@ const Testcycle = () => {
   }, []);
   const datadisplay = (val) => {
     showdatamore(val);
-    localStorage.setItem("selectedData", JSON.stringify(val));
+    // localStorage.setItem("selectedData", JSON.stringify(val));
   };
 
   return (

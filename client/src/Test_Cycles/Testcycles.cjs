@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const sql = require("mysql");
+const sql = require("mysql2");
 const bodyparser = require("body-parser");
 const app = express();
 app.use(cors());
@@ -10,17 +10,17 @@ const PORT = 3005;
 
 const database = sql.createConnection({
   host: "localhost",
-  password: "bhavanibai1/",
   user: "root",
-  database: "projectworks",
+  password: "123$5678",
+  database: "user_db",
 });
 app.post("/getDataAdmin", (req, res) => {
   const { email, summary, descriptions, startdate, enddate } = req.body;
-  const query1 = "select id from emails where email=?";
+  const query1 = "select userId from tester where email=?";
   database.query(query1, [email], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      const user_id = result[0].id;
+      const user_id = result[0].userId;
       const query2 =
         "insert into testcycles(summary,descriptions,startdate,enddate,user_id) values(?,?,?,?,?)";
       database.query(
@@ -40,7 +40,7 @@ app.post("/getDataAdmin", (req, res) => {
 app.get("/gettestcycles/:email", (req, res) => {
   const email = req.params.email;
   const query3 =
-    "select c.id,c.summary,c.descriptions,c.startdate,c.enddate,c.stats from testcycles c join emails e on c.user_id=e.id where email=?";
+    "select c.id,c.summary,c.descriptions,c.startdate,c.enddate,c.stats from testcycles c join tester e on c.user_id=e.userId where email=?";
   database.query(query3, [email], (err, result) => {
     if (err) throw err;
     console.log(result);
@@ -51,11 +51,11 @@ app.get("/gettestcycles/:email", (req, res) => {
 app.patch("/changestats/:email/:id", (req, res) => {
   const email = req.params.email;
   const id = req.params.id;
-  const query4 = "select id from emails where email=?";
+  const query4 = "select userId from tester where email=?";
   database.query(query4, [email], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      const user_id = result[0].id;
+      const user_id = result[0].userId;
       const query5 =
         'update testcycles set stats="active" where user_id=? and id=?';
       database.query(query5, [user_id, id], (err, result) => {

@@ -40,7 +40,7 @@ const ProjectMatter = () => {
                     to={`/DetailMatter/${ans.project_id}`}
                     state={{ project: ans }}
                   >
-                    {ans.Heading}
+                    {ans.heading}
                   </Link>
                 </div>
                 <div>

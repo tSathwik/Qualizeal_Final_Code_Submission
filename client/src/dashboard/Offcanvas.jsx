@@ -15,13 +15,12 @@ const Offcanvas = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const { userData } = useDataContext();
+  const { userData, resetUserData } = useDataContext();
 
   const fullname = `${userData.first_name} ${userData.last_name}`;
 
   const handleSignOut = () => {
-    localStorage.removeItem("userID");
-    localStorage.removeItem("token");
+    resetUserData;
     console.log("User signed out");
     navigate("/");
   };

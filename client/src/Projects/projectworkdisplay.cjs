@@ -1,15 +1,15 @@
 const express = require("express");
-const sql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const app = express();
 app.use(cors());
 const PORT = 3001;
 
-const database = sql.createConnection({
+const database = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "bhavanibai1/",
-  database: "projectworks",
+  password: "123$5678",
+  database: "user_db",
 });
 
 app.get("/data", (req, res) => {

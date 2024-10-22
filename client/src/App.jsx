@@ -45,6 +45,7 @@ import PersonalInfo from "./Profile/PersonalInfo";
 import { DataProvider } from "./DataContext";
 import CommunityProfile from "./Profile/CommunityProfile";
 import AcademyPage from "./Academy/AcademyPage";
+import Notify from "./Notifications/Notify";
 
 const App = () => {
   return (
@@ -74,9 +75,13 @@ const App = () => {
         <Route path="/policy" element={<PolicyPage />}></Route>
         <Route path="/Payment" element={<Money></Money>}></Route>
         <Route path="/Testcase" element={<TestcaseTab></TestcaseTab>}></Route>
-        <Route path="/CommunityProfile" element={<CommunityProfile/>}></Route>
+        <Route path="/CommunityProfile" element={<CommunityProfile />}></Route>
         <Route path="/Profile" element={<Profile />}></Route>
-        <Route path="/course" element={<AcademyPage/>}></Route>
+        <Route path="/course" element={<AcademyPage />}></Route>
+        <Route
+          path="/Notify"
+          element={<NotificationsTab></NotificationsTab>}
+        ></Route>
         <Route
           path="/ProjectMatter"
           element={<ProjectsSection></ProjectsSection>}
@@ -268,11 +273,10 @@ function TestcaseTab() {
 function PolicyPage() {
   return (
     <>
-      <Offcanvas/>
+      <Offcanvas />
       <div className=" max-w-6xl mx-auto pt-20 px-6">
         <Policy></Policy>
       </div>
-      
     </>
   );
 }
@@ -280,11 +284,10 @@ function PolicyPage() {
 function GuidlinesPage() {
   return (
     <>
-      <Offcanvas/>
+      <Offcanvas />
       <div className=" max-w-6xl mx-auto pt-20 px-6">
         <Guidlines></Guidlines>
       </div>
-      
     </>
   );
 }
@@ -292,11 +295,23 @@ function GuidlinesPage() {
 function ConditionsPage() {
   return (
     <>
-      <Offcanvas/>
+      <Offcanvas />
       <div className=" max-w-6xl mx-auto pt-20 px-6">
         <Conditions></Conditions>
       </div>
-      
+    </>
+  );
+}
+function NotificationsTab() {
+  return (
+    <>
+      <div className="ml-64 p-6">
+        <DashNav val={"Notifications"} />
+      </div>
+      <div className="ml-64 min-h-screen flex">
+        <Offcanvas></Offcanvas>
+        <Notify></Notify>
+      </div>
     </>
   );
 }

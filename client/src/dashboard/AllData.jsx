@@ -33,7 +33,7 @@ const AllData = () => {
     data();
   }, []);
 
-  const email = "vaarunsingghh@gmail.com";
+  const email = localStorage.getItem("email");
   useEffect(() => {
     async function data() {
       try {

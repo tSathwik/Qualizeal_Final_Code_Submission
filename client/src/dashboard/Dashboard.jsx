@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainContent from "./MainContent"; // Import MainContent component
 import Offcanvas from "./Offcanvas";
 

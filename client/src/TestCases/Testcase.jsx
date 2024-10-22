@@ -2,24 +2,22 @@ import React, { useEffect, useState } from "react";
 import Testcasedetail from "./Testcasedetail";
 import { format } from "date-fns";
 const Testcase = () => {
-  const [newdata, setnewdata] = useState(null);
-  const [load, setLoad] = useState(true);
   const [values, setValues] = useState(null);
-  useEffect(() => {
-    const storeData = localStorage.getItem("selectedData");
-    if (storeData) {
-      setnewdata(JSON.parse(storeData));
-    }
-    setLoad(false);
-  }, []);
+  // useEffect(() => {
+  //   const storeData = localStorage.getItem("selectedData");
+  //   if (storeData) {
+  //     setnewdata(JSON.parse(storeData));
+  //   }
+  //   setLoad(false);
+  // }, []);
 
   // const testcases = {
-  //   testcycle_id: 1,
-  //   title: "Login credential check",
+  //   testcycle_id: 9,
+  //   title: "SignUp working or not check",
   //   summary:
-  //     "Go to this page and check the credential check and make correct if it is possible mrunal thakur",
-  //   expected_result: "it should be safe",
-  //   assigned_to: email,
+  //     "Make sure this work fine and does not get details and also to make sure to run everything is fine or not.",
+  //   expected_result: "Done doing it and run the process",
+  //   assigned_to: "ddharanibai2000@gmail.com",
   // };
   // useEffect(() => {
   //   async function getData() {
@@ -40,22 +38,22 @@ const Testcase = () => {
   //   getData();
   // }, []);
   const [total, setTotal] = useState([]);
+  const email = localStorage.getItem("email");
   useEffect(() => {
-    if (!load && newdata) {
-      const test_cycle_id = newdata.id;
-      async function gettestcasedata() {
-        try {
-          const response = await fetch(`http://localhost:3006/testcase/info`);
-          const data = await response.json();
-          setTotal(data);
-          console.log(data);
-        } catch (e) {
-          console.log(e);
-        }
+    async function gettestcasedata() {
+      try {
+        const response = await fetch(
+          `http://localhost:3006/testcase/info/${email}`
+        );
+        const data = await response.json();
+        setTotal(data);
+        console.log(data);
+      } catch (e) {
+        console.log(e);
       }
-      gettestcasedata();
     }
-  }, [load, newdata]);
+    gettestcasedata();
+  }, []);
 
   return (
     <>
@@ -102,57 +100,62 @@ const Testcase = () => {
                 </th>
               </tr>
             </thead>
-            {total.map((data, _) => (
-              <tbody
-                className="bg-white divide-y divide-gray-200 cursor-pointer hover:bg-[#cccdce]"
-                key={data.id}
-              >
-                <tr onClick={() => setValues(data)}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {data.id}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {data.title}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {data.assigned_to}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {data.priority == "low" ? (
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {data.priority}
-                      </span>
-                    ) : data.priority == "medium" ? (
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                        {data.priority}
-                      </span>
-                    ) : (
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                        {data.priority}
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {format(new Date(data.created_at), "dd MMMM yyyy")}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {data.stats == "Pass" ? (
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {data.stats}
-                      </span>
-                    ) : data.stats == "Fail" ? (
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                        {data.stats}
-                      </span>
-                    ) : (
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                        {data.stats}
-                      </span>
-                    )}
-                  </td>
-                </tr>
-              </tbody>
-            ))}
+
+            {total.length > 0 ? (
+              total.map((data, _) => (
+                <tbody
+                  className="bg-white divide-y divide-gray-200 cursor-pointer hover:bg-[#cccdce]"
+                  key={data.id}
+                >
+                  <tr onClick={() => setValues(data)}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      {data.id}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {data.title}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {data.assigned_to}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {data.priority == "low" ? (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          {data.priority}
+                        </span>
+                      ) : data.priority == "medium" ? (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                          {data.priority}
+                        </span>
+                      ) : (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                          {data.priority}
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {format(new Date(data.created_at), "dd MMMM yyyy")}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {data.stats == "Pass" ? (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          {data.stats}
+                        </span>
+                      ) : data.stats == "Fail" ? (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                          {data.stats}
+                        </span>
+                      ) : (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                          {data.stats}
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              ))
+            ) : (
+              <p>No TestCycles are Avaliable</p>
+            )}
           </table>
         </div>
       </div>

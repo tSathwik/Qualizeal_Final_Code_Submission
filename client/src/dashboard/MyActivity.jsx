@@ -12,7 +12,7 @@ const MyActivity = () => {
   const [Ftestcases, FailedTestcases] = useState(0);
   const [Itestcases, InprogressTestcases] = useState(0);
 
-  const email = "vaarunsingghh@gmail.com";
+  const email = localStorage.getItem("email");
   useEffect(() => {
     async function getTestCasesData() {
       try {

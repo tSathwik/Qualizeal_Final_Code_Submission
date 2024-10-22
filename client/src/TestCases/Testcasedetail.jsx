@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { format } from "date-fns";
 
@@ -7,6 +7,7 @@ const Testcasedetail = ({ pass, onClose }) => {
   const [Stats, setStats] = useState("In progress");
   const [Actual, setActual] = useState("");
   const [Issue, setIssue] = useState("");
+  const [showBut, setShowBut] = useState(true);
 
   const handlePriority = (e) => {
     setPriority(e.target.value);
@@ -27,6 +28,12 @@ const Testcasedetail = ({ pass, onClose }) => {
     issues: Issue,
     id: pass.id,
   };
+  useEffect(() => {
+    if (setShowBut(!pass.issues && !pass.actual_result)) {
+      setShowBut(false);
+    }
+  }, [pass]);
+
   console.log("Priority:" + Priority);
   console.log("Status:" + Stats);
   console.log("Actual:" + Actual);
@@ -52,9 +59,9 @@ const Testcasedetail = ({ pass, onClose }) => {
     }
   }
   return (
-    <div className="fixed inset-0 w-full h-full bg-gray-600 bg-opacity-50 overflow-y-auto flex items-center justify-center p-4">
+    <div className="fixed inset-0 w-full h-full bg-gray-600 bg-opacity-50 overflow-y-auto flex items-center justify-center p-4 ml-8">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl h-[80%] overflow-y-auto scr ml-44">
-        <div className="border-b px-6 py-4 flex items-center justify-between fixed">
+        <div className="border-b px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold text-gray-800">
             Test Case Details
           </h2>
@@ -164,6 +171,8 @@ const Testcasedetail = ({ pass, onClose }) => {
                 name="actual result"
                 rows="1"
                 onChange={handleActualResult}
+                required
+                placeholder="Enter the result"
                 className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 p-2 border-2"
               ></textarea>
             )}
@@ -184,6 +193,8 @@ const Testcasedetail = ({ pass, onClose }) => {
                 name="issues"
                 rows="3"
                 onChange={handleIssues}
+                placeholder="Issues Faced"
+                required
                 className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 p-2 border-2"
               ></textarea>
             )}
@@ -192,8 +203,11 @@ const Testcasedetail = ({ pass, onClose }) => {
         <div className="bg-gray-50 px-6 py-4 flex justify-end">
           <button
             type="button"
-            className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
+            className={`px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+              !showBut && "opacity-50 cursor-not-allowed"
+            }`}
             onClick={changedata}
+            disabled={!showBut}
           >
             Save Changes
           </button>

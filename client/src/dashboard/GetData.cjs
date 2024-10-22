@@ -1,5 +1,5 @@
 const express = require("express");
-const sql = require("mysql");
+const sql = require("mysql2");
 const cors = require("cors");
 const app = express();
 app.use(express());
@@ -7,12 +7,12 @@ app.use(cors());
 const PORT = 3008;
 const database = sql.createConnection({
   host: "localhost",
-  password: "bhavanibai1/",
   user: "root",
-  database: "projectworks",
+  password: "123$5678",
+  database: "user_db",
 });
 app.get("/totalUsers", (req, res) => {
-  const query1 = "select id from emails";
+  const query1 = "select userId from tester";
   database.query(query1, (err, result) => {
     if (err) throw err;
     res.json(result);
@@ -27,11 +27,11 @@ app.get("/totalProjects", (req, res) => {
 });
 app.get("/totalTestcycles/:email", (req, res) => {
   const { email } = req.params;
-  const query3 = "select id from emails where email=?";
+  const query3 = "select userId from tester where email=?";
   database.query(query3, [email], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      const resultData = result[0].id;
+      const resultData = result[0].userId;
       const query4 = "select id from testcycles where user_id=?";
       database.query(query4, [resultData], (err, result) => {
         if (err) throw err;
@@ -46,11 +46,11 @@ app.get("/totalTestcycles/:email", (req, res) => {
 
 app.get("/totalTestcases/:email", (req, res) => {
   const { email } = req.params;
-  const query3 = "select id from emails where email=?";
+  const query3 = "select userId from tester where email=?";
   database.query(query3, [email], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      const resultData = result[0].id;
+      const resultData = result[0].userId;
       const query4 = "select id from testcycles where user_id=?";
       database.query(query4, [resultData], (err, result) => {
         if (err) throw err;
@@ -82,11 +82,11 @@ app.get("/totalTestcases/:email", (req, res) => {
 
 app.get("/getPendingTestCycles/:email", (req, res) => {
   const { email } = req.params;
-  const query6 = "select id from emails where email=?";
+  const query6 = "select userId from tester where email=?";
   database.query(query6, [email], (err, result1) => {
     if (err) throw err;
     if (result1.length > 0) {
-      const resultData2 = result1[0].id;
+      const resultData2 = result1[0].userId;
       const query7 =
         'select id from testcycles where stats="pending" and user_id=?';
       const query8 =
@@ -116,11 +116,11 @@ app.get("/getPendingTestCycles/:email", (req, res) => {
 });
 app.get("/testcasedetails/:email", (req, res) => {
   const { email } = req.params;
-  const query9 = "select id from emails where email=?";
+  const query9 = "select userId from tester where email=?";
   database.query(query9, [email], (err, result1) => {
     if (err) throw err;
     if (result1.length > 0) {
-      const resultdata1 = result1[0].id;
+      const resultdata1 = result1[0].userId;
       const query10 = "select id from testcycles where user_id=?";
       database.query(query10, [resultdata1], (err, result2) => {
         if (err) throw err;
@@ -153,11 +153,11 @@ app.get("/testcasedetails/:email", (req, res) => {
 });
 app.get("/testcasedetailsIn/:email", (req, res) => {
   const { email } = req.params;
-  const query9 = "select id from emails where email=?";
+  const query9 = "select userId from tester where email=?";
   database.query(query9, [email], (err, result1) => {
     if (err) throw err;
     if (result1.length > 0) {
-      const resultdata1 = result1[0].id;
+      const resultdata1 = result1[0].userId;
       const query10 = "select id from testcycles where user_id=?";
       database.query(query10, [resultdata1], (err, result2) => {
         if (err) throw err;
@@ -190,11 +190,11 @@ app.get("/testcasedetailsIn/:email", (req, res) => {
 });
 app.get("/testcasedetailsFail/:email", (req, res) => {
   const { email } = req.params;
-  const query9 = "select id from emails where email=?";
+  const query9 = "select userId from tester where email=?";
   database.query(query9, [email], (err, result1) => {
     if (err) throw err;
     if (result1.length > 0) {
-      const resultdata1 = result1[0].id;
+      const resultdata1 = result1[0].userId;
       const query10 = "select id from testcycles where user_id=?";
       database.query(query10, [resultdata1], (err, result2) => {
         if (err) throw err;
