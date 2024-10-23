@@ -20,7 +20,9 @@ const Offcanvas = () => {
   const fullname = `${userData.first_name} ${userData.last_name}`;
 
   const handleSignOut = () => {
-    resetUserData;
+    localStorage.removeItem("userID");
+    localStorage.removeItem("token");
+    localStorage.clear();
     console.log("User signed out");
     navigate("/");
   };
@@ -62,6 +64,7 @@ const Offcanvas = () => {
               </div>
             </NavLink>
           </li>
+          {/*
           <li className="mb-2 mt-5">
             <NavLink
               to="/CommunityProfile"
@@ -72,7 +75,7 @@ const Offcanvas = () => {
                 <span>Community Profile</span>
               </div>
             </NavLink>
-          </li>
+          </li>*/}
           <li className="mb-2 mt-5">
             <NavLink
               to="/academy"

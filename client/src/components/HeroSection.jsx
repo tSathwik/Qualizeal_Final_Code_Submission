@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loadingGetStarted, setLoadingGetStarted] = useState(false);
+  const [loadingContactUs, setLoadingContactUs] = useState(false);
 
-  const handleNavigation = (path) => {
+  const handleNavigation = (path, setLoading) => {
     setLoading(true);
     setTimeout(() => {
       navigate(path);
@@ -32,23 +33,22 @@ const HeroSection = () => {
           </p>
           <div className="flex justify-center my-8">
             <button
-              onClick={() => handleNavigation("/login")}
+              onClick={() => handleNavigation("/login", setLoadingGetStarted)}
               className="rounded-md bg-gradient-to-r from-black to-blue-950 shadow-lg hover:scale-105 hover:shadow-xl text-white px-6 py-3 flex items-center justify-center"
-              disabled={loading}
+              disabled={loadingGetStarted}
             >
-              {loading ? (
+              {loadingGetStarted ? (
                 <div className="spinner-border animate-spin inline-block w-4 h-4 border-4 rounded-full border-t-transparent border-white"></div>
               ) : (
                 "Get Started"
               )}
             </button>
             <button
-              onClick={() => handleNavigation("/contactus")}
-              type="submit"
+              onClick={() => handleNavigation("/contactus", setLoadingContactUs)}
               className="mx-3 rounded-md border px-6 py-3 hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
-              disabled={loading}
+              disabled={loadingContactUs}
             >
-              {loading ? (
+              {loadingContactUs ? (
                 <div className="spinner-border animate-spin inline-block w-4 h-4 border-4 rounded-full border-t-transparent border-black"></div>
               ) : (
                 "Contact Us"
