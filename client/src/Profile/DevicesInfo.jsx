@@ -1,191 +1,3 @@
-// import React, { useState } from "react";
-// import { useDataContext } from "../DataContext";
-
-// const DevicesInfo = () => {
-//   const { userData, updateDeviceInfo } = useDataContext();
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [formData, setFormData] = useState({
-//     computer: userData.computer || "",
-//     version: userData.version || "",
-//     language: userData.language || "",
-//     mobile: userData.mobile || "",
-//     model: userData.model || "",
-//     os: userData.os || "",
-//   });
-
-//   const toggleEditMode = () => {
-//     setIsEditing(!isEditing);
-//     if (!isEditing) {
-//       setFormData({
-//         computer: userData.computer || "",
-//         version: userData.version || "",
-//         language: userData.language || "",
-//         mobile: userData.mobile || "",
-//         model: userData.model || "",
-//         os: userData.os || "",
-//       });
-//     }
-//   };
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const handleSave = async () => {
-//     try {
-//       await updateDeviceInfo(formData);
-//       setIsEditing(false);
-//     } catch (error) {
-//       console.error("Error updating user data:", error);
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-blue-50 flex flex-col justify-start items-center py-10">
-//       <div className="text-center text-4xl font-semibold mb-10 text-gray-800">
-//         <h1>Devices Info</h1>
-//       </div>
-//       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
-//         <div className="mx-5 bg-white rounded-xl shadow-lg p-6 w-full md:w-80">
-//           {/* Edit Button */}
-//           <div className="flex justify-end mb-4">
-//             <button
-//               onClick={toggleEditMode}
-//               className="px-4 py-2 bg-blue-500 text-white rounded-md"
-//             >
-//               {isEditing ? "Cancel" : "Edit"}
-//             </button>
-//           </div>
-
-//           {/* Computer */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">
-//               Your Computer
-//             </h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="computer"
-//                 value={formData.computer}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.computer}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Version */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">Version</h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="version"
-//                 value={formData.version}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.version}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Language */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">Language</h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="language"
-//                 value={formData.language}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.language}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Mobile */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">Your Mobile</h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="mobile"
-//                 value={formData.mobile}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.mobile}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Model */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">Model</h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="model"
-//                 value={formData.model}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.model}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* OS */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">OS</h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="os"
-//                 value={formData.os}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.os}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Save Button */}
-//           {isEditing && (
-//             <div className="flex justify-end">
-//               <button
-//                 onClick={handleSave}
-//                 className="px-4 py-2 bg-green-500 text-white rounded-md"
-//               >
-//                 Save
-//               </button>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DevicesInfo;
 import React, { useState } from "react";
 import { useDataContext } from "../DataContext";
 
@@ -200,6 +12,8 @@ const DevicesInfo = () => {
     model: userData.model || "",
     os: userData.os || "",
   });
+  const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
@@ -213,6 +27,7 @@ const DevicesInfo = () => {
         model: userData.model || "",
         os: userData.os || "",
       });
+      setErrorMessage("");
     }
   };
 
@@ -222,149 +37,82 @@ const DevicesInfo = () => {
   };
 
   const handleSave = async () => {
+    setIsSaving(true);
     try {
-      await updateDeviceInfo(formData); // Ensure this is an async function
+      await updateDeviceInfo(formData);
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating user data:", error); // Handle error
+      setErrorMessage("Failed to update device information. Please try again.");
     }
+    setIsSaving(false);
   };
 
+  const renderInputField = (label, name) => (
+    <div className="mb-6">
+      <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+        {label}
+      </label>
+      {isEditing ? (
+        <input
+          type="text"
+          name={name}
+          value={formData[name]}
+          onChange={handleInputChange}
+          className="mt-1 p-3 block w-full border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+        />
+      ) : (
+        <div className="mt-2 p-3 block w-full bg-gray-100 text-gray-700 rounded-lg">
+          {formData[name] || "N/A"}
+        </div>
+      )}
+    </div>
+  );
+
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col justify-start items-center py-10">
-      <div className="text-center text-4xl font-semibold mb-10 text-gray-800">
-        <h1>Devices Info</h1>
-      </div>
-      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
-        <div className="mx-5 bg-white rounded-xl shadow-lg p-6 w-full md:w-80">
+    <div className="min-h-screen flex justify-center items-center py-12">
+      <div className="bg-white shadow-xl rounded-lg overflow-hidden w-full max-w-4xl">
+        {/* Header Section */}
+        <div className="bg-blue-600 text-white py-5 px-6 text-center">
+          <h1 className="text-2xl font-semibold">Devices Information</h1>
+        </div>
+
+        <div className="px-8 py-10">
           {/* Edit Button */}
           <div className="flex justify-end mb-4">
             <button
               onClick={toggleEditMode}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+              className="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition duration-200"
             >
               {isEditing ? "Cancel" : "Edit"}
             </button>
           </div>
 
-          {/* Computer */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">
-              Your Computer
-            </h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="computer"
-                value={formData.computer}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.computer}
-              </div>
-            )}
+          {/* Form Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {renderInputField("Your Computer", "computer")}
+            {renderInputField("Version", "version")}
+            {renderInputField("Language", "language")}
+            {renderInputField("Your Mobile", "mobile")}
+            {renderInputField("Model", "model")}
+            {renderInputField("OS", "os")}
           </div>
 
-          {/* Version */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Version</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="version"
-                value={formData.version}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.version}
-              </div>
-            )}
-          </div>
-
-          {/* Language */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Language</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="language"
-                value={formData.language}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.language}
-              </div>
-            )}
-          </div>
-
-          {/* Mobile */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Your Mobile</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.mobile}
-              </div>
-            )}
-          </div>
-
-          {/* Model */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Model</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="model"
-                value={formData.model}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.model}
-              </div>
-            )}
-          </div>
-
-          {/* OS */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">OS</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="os"
-                value={formData.os}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.os}
-              </div>
-            )}
-          </div>
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="text-red-500 text-sm mt-4">{errorMessage}</div>
+          )}
 
           {/* Save Button */}
           {isEditing && (
-            <div className="flex justify-end">
+            <div className="mt-8 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-4 py-2 bg-green-500 text-white rounded-md"
+                disabled={isSaving}
+                className={`px-6 py-3 rounded-lg text-white font-medium transition duration-200 ${
+                  isSaving ? "bg-gray-400" : "bg-green-600 hover:bg-green-500"
+                }`}
               >
-                Save
+                {isSaving ? "Saving..." : "Save"}
               </button>
             </div>
           )}
@@ -373,5 +121,6 @@ const DevicesInfo = () => {
     </div>
   );
 };
+ export default DevicesInfo;
 
-export default DevicesInfo;
+

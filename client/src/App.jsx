@@ -46,6 +46,7 @@ import { DataProvider } from "./DataContext";
 import CommunityProfile from "./Profile/CommunityProfile";
 import AcademyPage from "./Academy/AcademyPage";
 import Notify from "./Notifications/Notify";
+import EmailForm from "./EmailForm";
 
 const App = () => {
   return (
@@ -88,6 +89,7 @@ const App = () => {
         ></Route>
         <Route path="/DetailMatter/:id" element={<Mat></Mat>}></Route>
         <Route path="/Testcycle" element={<Test></Test>}></Route>
+        <Route path="/sendemail" element={<EmailForm />}></Route>
       </Routes>
     </DataProvider>
   );

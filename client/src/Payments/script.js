@@ -1,6 +1,6 @@
 let token;
 document.getElementById("transactions").addEventListener("click", function () {
-  fetch("http://localhost:3000/get_transactions", {
+  fetch("http://localhost:3010/get_transactions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,7 +22,7 @@ document.getElementById("transactions").addEventListener("click", function () {
 });
 
 document.getElementById("auth").addEventListener("click", function () {
-  fetch("http://localhost:3000/create_link_token", {
+  fetch("http://localhost:3010/create_link_token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +35,7 @@ document.getElementById("auth").addEventListener("click", function () {
       const linkHandler = Plaid.create({
         token: linkToken,
         onSuccess: function (publicToken, metadata) {
-          fetch("http://localhost:3000/get_access_token", {
+          fetch("http://localhost:3010/get_access_token", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

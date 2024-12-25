@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import Offcanvas from "../dashboard/Offcanvas";
 import DashNav from "../dashboard/DashNav";
 import PersonalInfo from "./PersonalInfo";
-import AddressInfo from "./AddressInfo"; 
-import DevicesInfo from "./DevicesInfo"; 
-import PaymentTestingInfo from "./PaymentTestingInfo"; 
-import SubscriptionInfo from "./SubscriptionInfo"; 
-import InterestsInfo from "./InterestsInfo"; 
-import StatisticsInfo from "./StatisticsInfo"; 
+import AddressInfo from "./AddressInfo";
+import DevicesInfo from "./DevicesInfo";
+import PaymentTestingInfo from "./PaymentTestingInfo";
+import SubscriptionInfo from "./SubscriptionInfo";
+import InterestsInfo from "./InterestsInfo";
+import StatisticsInfo from "./StatisticsInfo";
 
 const Profile = () => {
- 
   const [activeTab, setActiveTab] = useState("Personal");
 
   const handleTabClick = (tabName) => {
@@ -25,108 +24,47 @@ const Profile = () => {
         return <AddressInfo />;
       case "Devices":
         return <DevicesInfo />;
-      case "Payment Testing":
-        return <PaymentTestingInfo />;
+
       case "SubscriptionInfo":
         return <SubscriptionInfo />;
       case "InterestsInfo":
         return <InterestsInfo />;
-      case "StatisticsInfo":
-        return <StatisticsInfo />;
-      default:
-        return <PersonalInfo />;
     }
   };
 
   return (
     <>
-      <div className="ml-64 p-4 bg-gray-100">
-        <DashNav val={"Profile"} />
+      <div className="ml-64 p-4 ">
+        <DashNav val={""} />
       </div>
       <div className="ml-64 min-h-screen">
         <Offcanvas />
-        <div className="p-3 bg-gradient-to-r from-blue-900 to-blue-950 rounded-xl m-7"></div>
-        <div className="text-center mt-5 text-3xl font-bold">
-          <h1>Checkout your Profile here</h1>
-        </div>
+
         <div className="flex justify-center my-5">
-          <ul>
-            <div className="flex gap-7">
+          <ul className="flex space-x-8 bg-white rounded-lg  p-2">
+            {[
+              "Personal",
+              "Address",
+              "Devices",
+              "SubscriptionInfo",
+              "InterestsInfo",
+              ,
+            ].map((tab) => (
               <li
-                className={`cursor-pointer transition-all duration-300 ${
-                  activeTab === "Personal"
-                    ? "underline text-blue-500"
-                    : "hover:text-blue-300"
+                key={tab}
+                className={`cursor-pointer transition-all duration-300 py-2 px-4 rounded-lg ${
+                  activeTab === tab
+                    ? "bg-blue-500 text-white font-semibold"
+                    : "text-blue-500 hover:bg-blue-100 hover:text-blue-700"
                 }`}
-                onClick={() => handleTabClick("Personal")}
+                onClick={() => handleTabClick(tab)}
               >
-                Personal
+                {tab}
               </li>
-              <li
-                className={`cursor-pointer transition-all duration-300 ${
-                  activeTab === "Address"
-                    ? "underline text-blue-500"
-                    : "hover:text-blue-300"
-                }`}
-                onClick={() => handleTabClick("Address")}
-              >
-                Address
-              </li>
-              <li
-                className={`cursor-pointer transition-all duration-300 ${
-                  activeTab === "Devices"
-                    ? "underline text-blue-500"
-                    : "hover:text-blue-300"
-                }`}
-                onClick={() => handleTabClick("Devices")}
-              >
-                Devices
-              </li>
-              <li
-                className={`cursor-pointer transition-all duration-300 ${
-                  activeTab === "Payment Testing"
-                    ? "underline text-blue-500"
-                    : "hover:text-blue-300"
-                }`}
-                onClick={() => handleTabClick("Payment Testing")}
-              >
-                Payment Testing
-              </li>
-              <li
-                className={`cursor-pointer transition-all duration-300 ${
-                  activeTab === "SubscriptionInfo"
-                    ? "underline text-blue-500"
-                    : "hover:text-blue-300"
-                }`}
-                onClick={() => handleTabClick("SubscriptionInfo")}
-              >
-                SubscriptionInfo
-              </li>
-              <li
-                className={`cursor-pointer transition-all duration-300 ${
-                  activeTab === "InterestsInfo"
-                    ? "underline text-blue-500"
-                    : "hover:text-blue-300"
-                }`}
-                onClick={() => handleTabClick("InterestsInfo")}
-              >
-                InterestsInfo
-              </li>
-              <li
-                className={`cursor-pointer transition-all duration-300 ${
-                  activeTab === "StatisticsInfo"
-                    ? "underline text-blue-500"
-                    : "hover:text-blue-300"
-                }`}
-                onClick={() => handleTabClick("StatisticsInfo")}
-              >
-                StatisticsInfo
-              </li>
-            </div>
+            ))}
           </ul>
         </div>
-        <hr className="mb-3" />
-       
+
         <div className="p-4">{renderContent()}</div>
       </div>
     </>

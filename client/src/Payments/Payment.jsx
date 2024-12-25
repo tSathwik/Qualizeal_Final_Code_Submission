@@ -15,7 +15,7 @@ const Payment = () => {
   });
 
   const handleLinkBankAccount = () => {
-    fetch("http://localhost:3000/create_link_token", {
+    fetch("http://localhost:3010/create_link_token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const Payment = () => {
         const linkHandler = window.Plaid.create({
           token: linkToken,
           onSuccess: function (publicToken, metadata) {
-            fetch("http://localhost:3000/get_access_token", {
+            fetch("http://localhost:3010/get_access_token", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const Payment = () => {
   };
 
   const handleGetTransactions = () => {
-    fetch("http://localhost:3000/get_transactions", {
+    fetch("http://localhost:3010/get_transactions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,13 +108,7 @@ const Payment = () => {
           <p className="text-sm font-semibold text-gray-600 pb-2">
             Total Current Balance :
           </p>
-          <h1 className="text-5xl">
-            {
-              /* {getSymbolFromCurrency("USD") + Number.parseFloat(bal).toFixed(2)} */ usd.format(
-                bal
-              )
-            }
-          </h1>
+          <h1 className="text-5xl">{usd.format(bal)}</h1>
         </div>
         <p className="text-sm pb-2">Avergae Monthly Balance : 0.0</p>
         <p className="text-sm pb-4">Avergae Yearly Balance : 0.0</p>

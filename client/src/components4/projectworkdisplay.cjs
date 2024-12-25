@@ -1,5 +1,5 @@
 const express = require("express");
-const sql = require("mysql");
+const sql = require("mysql2");
 const cors = require("cors");
 const app = express();
 app.use(cors());

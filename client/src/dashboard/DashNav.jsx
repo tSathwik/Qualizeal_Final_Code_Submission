@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FaBell, FaUserCircle } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import Avatar from "react-avatar";
+import { useDataContext } from "../DataContext";
 
 const DashNav = ({ val }) => {
+  const { userData } = useDataContext();
   return (
     <div className="flex justify-between items-center mb-6">
       <h1 className="text-2xl font-bold">{val}</h1>
@@ -23,7 +25,7 @@ const DashNav = ({ val }) => {
         </div>
         <Avatar
           color={Avatar.getRandomColor("sitebase", ["blue"])}
-          name={localStorage.getItem("email")}
+          name={userData.first_name + userData.last_name}
           size="35"
           round
         />

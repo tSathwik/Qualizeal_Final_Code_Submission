@@ -1,154 +1,26 @@
-// import React, { useState } from "react";
-// import { useDataContext } from "../DataContext";
-// import map from "../assets/map.png";
-
-// const AddressInfo = () => {
-//   const { userData, updateAddressInfo } = useDataContext(); // Change to use separate function
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [formData, setFormData] = useState({
-//     city: userData.city || "",
-//     zip: userData.zip || "",
-//     country: userData.country || "",
-//   });
-
-//   const toggleEditMode = () => {
-//     setIsEditing(!isEditing);
-//     if (isEditing) {
-//       setFormData({
-//         city: userData.city || "",
-//         zip: userData.zip || "",
-//         country: userData.country || "",
-//       });
-//     }
-//   };
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const handleSave = async () => {
-//     await updateAddressInfo(formData); // Use specific function
-//     setIsEditing(false);
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-blue-50 flex flex-col justify-start items-center py-10">
-//       <div className="text-center text-4xl font-semibold mb-10 text-gray-800">
-//         <h1>Address Info</h1>
-//       </div>
-//       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
-//         <img
-//           src={map}
-//           alt="map"
-//           className="w-auto h-60 mb-5 md:mb-0 mr-20 shadow-lg"
-//         />
-//         <div className="mx-5 bg-white rounded-xl shadow-xl p-6 w-full md:w-80">
-//           {/* Edit Button */}
-//           <div className="flex justify-end mb-4">
-//             <button
-//               onClick={toggleEditMode}
-//               className="px-4 py-2 bg-blue-500 text-white rounded-md"
-//             >
-//               {isEditing ? "Cancel" : "Edit"}
-//             </button>
-//           </div>
-
-//           {/* City */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">City</h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="city"
-//                 value={formData.city}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.city}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Zip or Postal Code */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">
-//               Zip or Postal Code
-//             </h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="zip"
-//                 value={formData.zip}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.zip}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Country */}
-//           <div className="mb-5">
-//             <h2 className="font-semibold text-lg text-gray-700">Country</h2>
-//             {isEditing ? (
-//               <input
-//                 type="text"
-//                 name="country"
-//                 value={formData.country}
-//                 onChange={handleInputChange}
-//                 className="border border-gray-300 rounded-md p-2 w-full"
-//               />
-//             ) : (
-//               <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-//                 {userData.country}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Save Button */}
-//           {isEditing && (
-//             <div className="flex justify-end">
-//               <button
-//                 onClick={handleSave}
-//                 className="px-4 py-2 bg-green-500 text-white rounded-md"
-//               >
-//                 Save
-//               </button>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AddressInfo;
 import React, { useState } from "react";
 import { useDataContext } from "../DataContext";
-import map from "../assets/map.png";
 
 const AddressInfo = () => {
-  const { userData, updateAddressInfo } = useDataContext(); // Change to use separate function
+  const { userData, updateAddressInfo } = useDataContext();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     city: userData.city || "",
     zip: userData.zip || "",
     country: userData.country || "",
   });
+  const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
-    if (isEditing) {
+    if (!isEditing) {
       setFormData({
         city: userData.city || "",
         zip: userData.zip || "",
         country: userData.country || "",
       });
+      setErrorMessage("");
     }
   };
 
@@ -158,96 +30,93 @@ const AddressInfo = () => {
   };
 
   const handleSave = async () => {
-    await updateAddressInfo(formData); // Use specific function
-    setIsEditing(false);
+    if (!validateForm()) {
+      return;
+    }
+    setIsSaving(true);
+    try {
+      await updateAddressInfo(formData);
+      setIsEditing(false);
+    } catch (error) {
+      setErrorMessage("Failed to update information. Please try again.");
+    }
+    setIsSaving(false);
   };
 
-  return (
-    <div className="min-h-screen bg-blue-50 flex flex-col justify-start items-center py-10">
-      <div className="text-center text-4xl font-semibold mb-10 text-gray-800">
-        <h1>Address Info</h1>
-      </div>
-      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
-        <img
-          src={map}
-          alt="map"
-          className="w-auto h-60 mb-5 md:mb-0 mr-20 shadow-lg"
+  const validateForm = () => {
+    if (!formData.city || !formData.zip || !formData.country) {
+      setErrorMessage("Please fill in all required fields.");
+      return false;
+    }
+    setErrorMessage("");
+    return true;
+  };
+
+  const renderInputField = (label, name, required = false) => (
+    <div className="mb-6">
+      <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+        {label}
+        {required && <span className="text-red-500">*</span>}
+      </label>
+      {isEditing ? (
+        <input
+          type="text"
+          name={name}
+          value={formData[name]}
+          onChange={handleInputChange}
+          className="mt-1 p-3 block w-full border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+          required={required}
         />
-        <div className="mx-5 bg-white rounded-xl shadow-xl p-6 w-full md:w-80">
+      ) : (
+        <div className="mt-2 p-3 block w-full bg-gray-100 text-gray-700 rounded-lg">
+          {formData[name] || "N/A"}
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen flex justify-center items-center py-12">
+      <div className="bg-white shadow-xl rounded-lg overflow-hidden w-full max-w-4xl">
+        {/* Header Section */}
+        <div className="bg-blue-600 text-white py-5 px-6 text-center">
+          <h1 className="text-2xl font-semibold">Address Information</h1>
+        </div>
+
+        <div className="px-8 py-10">
           {/* Edit Button */}
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-end mb-8">
             <button
               onClick={toggleEditMode}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+              className="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition duration-200"
             >
               {isEditing ? "Cancel" : "Edit"}
             </button>
           </div>
 
-          {/* City */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">City</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.city}
-              </div>
-            )}
+          {/* Form Section */}
+          <div className="grid grid-cols-1 gap-8">
+            {renderInputField("City", "city", true)}
+            {renderInputField("Zip or Postal Code", "zip", true)}
+            {renderInputField("Country", "country", true)}
           </div>
 
-          {/* Zip or Postal Code */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">
-              Zip or Postal Code
-            </h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="zip"
-                value={formData.zip}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.zip}
-              </div>
-            )}
-          </div>
-
-          {/* Country */}
-          <div className="mb-5">
-            <h2 className="font-semibold text-lg text-gray-700">Country</h2>
-            {isEditing ? (
-              <input
-                type="text"
-                name="country"
-                value={formData.country}
-                onChange={handleInputChange}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded-md px-4 py-3 text-xl">
-                {userData.country}
-              </div>
-            )}
-          </div>
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="text-red-500 text-sm mt-4">{errorMessage}</div>
+          )}
 
           {/* Save Button */}
           {isEditing && (
-            <div className="flex justify-end">
+            <div className="mt-8 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-4 py-2 bg-green-500 text-white rounded-md"
+                disabled={isSaving}
+                className={`px-6 py-3 rounded-lg text-white font-medium transition duration-200 ${
+                  isSaving ? "bg-gray-400" : "bg-green-600 hover:bg-green-500"
+                }`}
               >
-                Save
+                {isSaving ? "Saving..." : "Save"}
               </button>
             </div>
           )}

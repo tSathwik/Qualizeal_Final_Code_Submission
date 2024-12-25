@@ -65,11 +65,11 @@ const Notify = () => {
                   <h3 className="font-semibold text-lg text-gray-800">
                     {data.heading}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-1">
+                  {/* <p className="text-sm text-gray-500 mt-1">
                     {formatDistanceToNow(new Date(data.ontime), {
                       addSuffix: true,
                     })}
-                  </p>
+                  </p> */}
                   <p className="text-gray-600 mt-2 line-clamp-2">
                     {data.matter}
                   </p>

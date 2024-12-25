@@ -40,7 +40,7 @@ app.post("/datainsert", (req, res) => {
 app.get("/notifications/data/:email", (req, res) => {
   const email = req.params.email;
   const query3 =
-    "select n.heading,n.matter,n.ontime from notifications n JOIN emails e on n.user_id=e.id where e.email=? order by n.ontime desc";
+    "select n.heading,n.matter,n.ontime from notifications n JOIN tester e on n.user_id=e.userId where e.email=? order by n.ontime desc";
   database.query(query3, [email], (err, result) => {
     if (err) throw err;
     console.log(result);

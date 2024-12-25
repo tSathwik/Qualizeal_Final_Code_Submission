@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     userEmail: "",
     password: "",
   });
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -14,14 +17,13 @@ const Login = () => {
       [name]: value,
     });
   };
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const isFormValid = formData.userEmail && formData.password;
     if (!isFormValid) {
-      setMessage("Please fill out all fields.");
+      toast.error("Please fill out all fields.");
       return;
     }
 
@@ -35,32 +37,26 @@ const Login = () => {
       });
 
       const result = await response.json();
-      console.log("Response from server:", result);
 
       if (response.ok && result.status === "success") {
-        // Store the token in localStorage
-        console.log("Response from server:", result);
-
         localStorage.setItem("userId", result.userId);
         localStorage.setItem("token", result.token);
         localStorage.setItem("email", result.email);
-        console.log(result.userId);
-        // Redirect to the dashboard
+        toast.success("Login successful!");
         navigate("/dashboard");
       } else {
-        setMessage(result.message || "Login failed.");
+        toast.error(result.message || "Login failed.");
       }
     } catch (error) {
       console.error("Error:", error);
-      setMessage("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen p-4 lg:p-0 relative">
-      {/* Left Side with Curved Background */}
+      <ToastContainer />
       <div className="relative w-full lg:w-1/2 h-96 lg:h-screen overflow-hidden">
-        {/* <div className="absolute inset-0 bg-gradient-to-br from-[#04befe] to-[#4481eb] rounded-b-full h-[50%] lg:h-[60%]"></div> */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#04befe] to-[#4481eb] rounded-full h-[100%] lg:h-[100%] -translate-y-1/2 lg:-translate-y-1/4"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 text-center lg:text-left lg:px-0 lg:left-20">
           <h1 className="text-3xl lg:text-4xl font-semibold text-white mb-4">
@@ -69,7 +65,10 @@ const Login = () => {
           <p className="text-sm lg:text-base text-white mb-6">
             If not registered, then sign up.
           </p>
-          <button className="text-white border-white border-2 py-2 px-6 lg:py-4 lg:px-10 rounded-full">
+          <button
+            className="text-white border-white border-2 py-2 px-6 lg:py-4 lg:px-10 rounded-full"
+            onClick={() => navigate("/personal")}
+          >
             SIGN UP
           </button>
           <img
@@ -80,7 +79,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Side with Sign-In Form */}
       <div className="flex flex-col w-full lg:w-1/2 p-8 lg:p-16 items-center lg:items-start relative z-10 mt-12 lg:mt-0 translate-x-10 lg:translate-x-20">
         <div className="w-full lg:w-3/4">
           <h2 className="text-2xl lg:text-3xl font-semibold text-gray-700 text-center lg:text-left mb-8">
@@ -128,16 +126,6 @@ const Login = () => {
               </button>
             </div>
           </form>
-          <div className="mt-6 text-center lg:text-left">
-            <p className="text-gray-500">Or Sign in with social platforms</p>
-            <div className="flex justify-center lg:justify-start mt-4 space-x-4">
-              {/* Social media buttons or icons */}
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@
 
 //       try {
 //         const response = await fetch(
-//           `http://localhost:3000/getUserInfo/${userId}`
+//           http://localhost:3000/getUserInfo/${userId}
 //         );
 //         const result = await response.json();
 //         console.log("Fetched User Data:", result);
@@ -53,7 +53,7 @@
 //   const updatePersonalInfo = async (updatedData) => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3000/updatePersonalInfo/${userId}`,
+//         http://localhost:3000/updatePersonalInfo/${userId},
 //         {
 //           method: "PUT",
 //           headers: {
@@ -83,7 +83,7 @@
 //   const updateAddressInfo = async (updatedData) => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3000/updateAddressInfo/${userId}`,
+//         http://localhost:3000/updateAddressInfo/${userId},
 //         {
 //           method: "PUT",
 //           headers: {
@@ -115,7 +115,7 @@
 //   const updateDeviceInfo = async (updatedData) => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3000/updateDeviceInfo/${userId}`,
+//         http://localhost:3000/updateDeviceInfo/${userId},
 //         {
 //           method: "PUT",
 //           headers: {
@@ -219,7 +219,7 @@ export const DataProvider = ({ children }) => {
   // const updatePersonalInfo = async (updatedData) => {
   //   try {
   //     const response = await fetch(
-  //       `http://localhost:3000/updatePersonalInfo/${userId}`,
+  //       http://localhost:3000/updatePersonalInfo/${userId},
   //       {
   //         method: "PUT",
   //         headers: {
@@ -250,7 +250,7 @@ export const DataProvider = ({ children }) => {
       const response = await fetch(
         `http://localhost:3000/updatePersonalInfo/${userId}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -263,7 +263,7 @@ export const DataProvider = ({ children }) => {
       if (response.ok && result.status === "success") {
         setUserData((prevData) => ({
           ...prevData,
-          ...result.user, // Ensure all fields are updated
+          ...result.user,
         }));
         console.log("Personal info updated in context:", result.user);
       } else {

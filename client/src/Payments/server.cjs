@@ -8,7 +8,7 @@ app.use(cors());
 
 app.use(express.json());
 
-const port = 3000;
+const port = 3010;
 
 const client = new plaid.PlaidApi(
   new plaid.Configuration({

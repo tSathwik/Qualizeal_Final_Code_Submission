@@ -33,7 +33,9 @@ const HeroSection = () => {
           </p>
           <div className="flex justify-center my-8">
             <button
-              onClick={() => handleNavigation("/login", setLoadingGetStarted)}
+              onClick={() =>
+                handleNavigation("/personal", setLoadingGetStarted)
+              }
               className="rounded-md bg-gradient-to-r from-black to-blue-950 shadow-lg hover:scale-105 hover:shadow-xl text-white px-6 py-3 flex items-center justify-center"
               disabled={loadingGetStarted}
             >
@@ -43,8 +45,10 @@ const HeroSection = () => {
                 "Get Started"
               )}
             </button>
-            <button
-              onClick={() => handleNavigation("/contactus", setLoadingContactUs)}
+            {/* <button
+              onClick={() =>
+                handleNavigation("/contactus", setLoadingContactUs)
+              }
               className="mx-3 rounded-md border px-6 py-3 hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
               disabled={loadingContactUs}
             >
@@ -53,7 +57,22 @@ const HeroSection = () => {
               ) : (
                 "Contact Us"
               )}
-            </button>
+            </button> */}
+<button
+  onClick={() => {
+    setLoadingContactUs(true);
+    window.location.href = "https://qualizeal.com/contact/";
+  }}
+  className="mx-3 rounded-md border px-6 py-3 hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
+  disabled={loadingContactUs}
+>
+  {loadingContactUs ? (
+    <div className="spinner-border animate-spin inline-block w-4 h-4 border-4 rounded-full border-t-transparent border-black"></div>
+  ) : (
+    "Contact Us"
+  )}
+</button>
+
           </div>
         </div>
         <div className="flex mt-10 justify-center al">
