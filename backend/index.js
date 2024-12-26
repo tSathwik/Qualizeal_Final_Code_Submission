@@ -517,6 +517,44 @@ app.put("/updateDeviceInfo/:id", async (req, res) => {
 //   }
 // });
 
+
+app.get("/bugs/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const query = "SELECT * FROM bugs WHERE user_Id = ?";
+
+  // Using parameterized query to avoid SQL injection
+  connection.query(query, [userId], (err, results) => {
+      if (err) {
+          console.error("Error fetching bugs:", err);
+          res.status(500).send("Server error");
+      } else {
+          res.status(200).json(results);
+      }
+  });
+});
+
+
+// API to add a bug
+app.post("/bugs/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const { projectId, bugDescription, stepsToReproduce, additionalDetails, url } = req.body;
+
+  // Corrected query with proper placeholders
+  const query = "INSERT INTO bugs (projectId, bugDescription, stepsToReproduce, additionalDetails, url, user_Id) VALUES (?, ?, ?, ?, ?, ?)";
+  
+  // Passing the values to the query safely
+  connection.query(query, [projectId, bugDescription, stepsToReproduce, additionalDetails, url, userId], (err, results) => {
+      if (err) {
+          console.error("Error inserting bug:", err);
+          res.status(500).send("Server error");
+      } else {
+          res.status(201).json({ id: results.insertId });
+      }
+  });
+});
+
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
