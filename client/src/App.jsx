@@ -47,6 +47,7 @@ import CommunityProfile from "./Profile/CommunityProfile";
 import AcademyPage from "./Academy/AcademyPage";
 import Notify from "./Notifications/Notify";
 import EmailForm from "./EmailForm";
+import Bugs from "./dashboard/Bugs";
 
 const App = () => {
   return (
@@ -90,6 +91,7 @@ const App = () => {
         <Route path="/DetailMatter/:id" element={<Mat></Mat>}></Route>
         <Route path="/Testcycle" element={<Test></Test>}></Route>
         <Route path="/sendemail" element={<EmailForm />}></Route>
+        <Route path="/Bugs" element={<BugsData />}></Route>
       </Routes>
     </DataProvider>
   );
@@ -122,6 +124,19 @@ function Aboutus() {
         <Follow></Follow>
       </div>
       <Footer />
+    </>
+  );
+}
+function BugsData() {
+  return (
+    <>
+      <div className="ml-64 p-6">
+        <DashNav val={"Bugs"} />
+      </div>
+      <div className="ml-64 min-h-screen flex">
+        <Offcanvas></Offcanvas>
+        <Bugs></Bugs>
+      </div>
     </>
   );
 }

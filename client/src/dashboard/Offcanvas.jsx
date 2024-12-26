@@ -133,6 +133,18 @@ const Offcanvas = () => {
             </NavLink>
           </li>
           <li className="mb-2 mt-5">
+          <NavLink
+              to="/bugs"
+              className={(e) => (e.isActive ? "border-1 block" : "")}
+            >
+              <div className="flex items-center gap-2">
+                <GoCodeSquare size={18} />
+                <span>Bugs</span>
+              </div>
+            </NavLink>
+          </li>
+          
+          <li className="mb-2 mt-5">
             <button
               onClick={handleSignOut}
               className="text-left w-full flex items-center gap-2"
