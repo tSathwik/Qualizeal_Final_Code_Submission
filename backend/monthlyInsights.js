@@ -217,43 +217,51 @@ const sendMonthlyInsights = async () => {
 
   // Construct email content
 const emailContent = `
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    </head>
+   <head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body, h2, h3, p {
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+    </style>
+</head>
 
-    <div style="font-family: 'Poppins', Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
-        <div style="background-color: #ffffff; text-align: center; padding: 20px;">
-            <img src="https://biz.prlog.org/qualizeal/logo.png" alt="QualiZeal Logo" style="max-width: 200px;">
-        </div>
-        <div style="padding: 20px; background-color: #f9f9f9;">
-            <h2 style="color: #3860be; text-align: center; font-size: 22px; margin-bottom: 20px;">Exciting Project Opportunities Await You!</h2>
-            <p style="color: #333; font-size: 16px;">Dear User,</p>
-            <p style="color: #333; font-size: 16px;">We are thrilled to bring you the latest updates from <strong>QualiZeal</strong>. Explore top-notch projects this month that align with your skills and interests.</p>
-            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
-            ${projects.map(
-                (project) => `
-                <div style="padding: 15px; background-color: #ffffff; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px;">
-                    <h3 style="color: #3860be; font-size: 18px; margin-bottom: 10px;">${project.heading}</h3>
-                    <h3 style=" color: #555 ,font-size: 18px;">Start Date: ${new Date(project.start_date).toLocaleDateString()}</h3>
-                    <h4 style="font-size: 15px; margin-bottom: 10px;">Project Id : ${project.project_id}</h4>
-                    <p style="color: #555; font-size: 14px; margin-bottom: 10px;">${project.summary}</p>
-                </div>`
-            ).join('')}
-            <p style="color: #555; font-size: 14px; margin-bottom: 5px;"><strong>Why Join:</strong> Enhance your skills, earn rewards, and be a part of groundbreaking technology initiatives.</p>
-            <p style="color: #333; font-size: 16px;">Apply now to seize this opportunity to earn, influence future technologies, and contribute to exciting new studies!</p>
-            <p style="color: #333; font-size: 16px;">If you have any questions, feel free to reach out to us at <a href="mailto:support@qualizeal.com" style="color: #3860be; text-decoration: none;">support@qualizeal.com</a>.</p>
-            <p style="color: #333; font-size: 16px;">We look forward to seeing your active participation in these projects!</p>
-            <p style="color: #333; font-size: 16px;">Best regards,<br><strong>QualiZeal Team</strong></p>
-        </div>
-        <div style="background-color: #f5f5f5; text-align: center; padding: 15px;">
-            <p style="color: #666; font-size: 14px; margin: 0;">2024 QualiZeal. All Rights Reserved.</p>
-            <p style="color: #666; font-size: 14px; margin: 0;">Connect with us: 
-                <a href="#" style="color: #3860be; text-decoration: none;">Facebook</a> | 
-                <a href="#" style="color: #3860be; text-decoration: none;">Twitter</a> | 
-                <a href="#" style="color: #3860be; text-decoration: none;">LinkedIn</a>
-            </p>
-        </div>
+<div style="font-family: 'Poppins', Arial, sans-serif; max-width: 600px; margin: 0 auto; overflow: hidden;">
+    <div style="background-color: #ffffff; text-align: center; padding: 20px;">
+        <img src="https://biz.prlog.org/qualizeal/logo.png" alt="QualiZeal Logo" style="max-width: 200px;">
     </div>
+    <div style="padding: 20px; background-color: #f9f9f9;">
+        <h2 style="color: #3860be; text-align: center; font-size: 24px; font-weight: 600; margin-bottom: 20px;">Exciting Project Opportunities Await You!</h2>
+        <p style="color: #333; font-size: 16px; line-height: 1.5;">Dear User,</p>
+        <p style="color: #333; font-size: 16px; line-height: 1.5;">We are thrilled to bring you the latest updates from <strong>QualiZeal</strong>. Explore top-notch projects this month that align with your skills and interests.</p>
+        <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+        
+        ${projects.map(
+            (project) => `
+            <div style="padding: 20px; background-color: #ffffff; margin-bottom: 20px;">
+                <h3 style="color: #3860be; font-size: 20px; font-weight: 600; margin-bottom: 10px;">${project.heading}</h3>
+                <p style="color: #555; font-size: 16px; margin: 5px 0; font-weight: 400;">Start Date: ${new Date(project.start_date).toLocaleDateString()}</p>
+                <p style="color: #555; font-size: 16px; margin: 5px 0; font-weight: 400;">Project ID: ${project.project_id}</p>
+                <p style="color: #555; font-size: 14px; line-height: 1.6; margin: 10px 0;">${project.summary}</p>
+            </div>`
+        ).join('')}
+
+        <p style="color: #333; font-size: 16px; line-height:1.5">Why Join : Enhance your skills, earn rewards, and be a part of groundbreaking technology initiatives.</p>
+        <p style="color: #333; font-size: 16px; line-height: 1.5;">Apply now to seize this opportunity to earn, influence future technologies, and contribute to exciting new studies!</p>
+        <p style="color: #333; font-size: 16px; line-height: 1.5;">If you have any questions, feel free to reach out to us at <a href="mailto:support@qualizeal.com" style="color: #3860be; text-decoration: none;">support@qualizeal.com</a>.</p>
+        <p style="color: #333; font-size: 16px; line-height: 1.5;">We look forward to seeing your active participation in these projects!</p>
+        <p style="color: #333; font-size: 16px; line-height: 1.5;">Best regards,<br><strong>QualiZeal Team</strong></p>
+    </div>
+    <div style="background-color: #f5f5f5; text-align: center; padding: 20px;">
+        <p style="color: #666; font-size: 14px; margin: 0;">2024 QualiZeal. All Rights Reserved.</p>
+        <p style="color: #666; font-size: 14px; margin: 10px 0;">Connect with us: 
+            <a href="#" style="color: #3860be; text-decoration: none;">Facebook</a> | 
+            <a href="#" style="color: #3860be; text-decoration: none;">Twitter</a> | 
+            <a href="#" style="color: #3860be; text-decoration: none;">LinkedIn</a>
+        </p>
+    </div>
+</div>
+
 `;
 
   for (const user of users) {

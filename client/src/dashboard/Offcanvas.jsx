@@ -10,6 +10,7 @@ import { GoCodeSquare } from "react-icons/go";
 import { FaUsers } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDataContext } from "../DataContext";
+import { IoBug } from "react-icons/io5";
 
 const Offcanvas = () => {
   const [show, setShow] = useState(false);
@@ -138,7 +139,7 @@ const Offcanvas = () => {
               className={(e) => (e.isActive ? "border-1 block" : "")}
             >
               <div className="flex items-center gap-2">
-                <GoCodeSquare size={18} />
+                <IoBug size={18} />
                 <span>Bugs</span>
               </div>
             </NavLink>
