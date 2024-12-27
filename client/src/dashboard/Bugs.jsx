@@ -350,19 +350,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Bugs = () => {
     const userId = localStorage.getItem("userId");
@@ -395,7 +383,7 @@ const Bugs = () => {
         };
 
         fetchBugs();
-    }, [userId]); // Added userId dependency
+    }, [userId]);
 
     const toggleReportingMode = () => {
         setIsReporting(!isReporting);
@@ -405,7 +393,7 @@ const Bugs = () => {
                 bugDescription: "",
                 stepsToReproduce: "",
                 additionalDetails: "",
-                url: "", // Reset URL as well
+                url: "",
             });
             setErrorMessage("");
         }
@@ -421,13 +409,17 @@ const Bugs = () => {
             return;
         }
 
+        // Normalize steps to be an array
+        const normalizedSteps = formData.stepsToReproduce.split("\n").map((step) => step.trim());
+        const payload = { ...formData, stepsToReproduce: normalizedSteps };
+
         try {
             const response = await fetch(`http://localhost:3000/bugs/${userId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             });
 
             if (!response.ok) {
@@ -435,13 +427,13 @@ const Bugs = () => {
             }
 
             const newBug = await response.json();
-            setBugs((prev) => [...prev, { ...formData, id: newBug.id }]);
+            setBugs((prev) => [...prev, { ...payload, id: newBug.id }]);
             setFormData({
                 projectId: "",
                 bugDescription: "",
                 stepsToReproduce: "",
                 additionalDetails: "",
-                url: "", // Reset the form data
+                url: "",
             });
             setIsReporting(false);
         } catch (error) {
@@ -489,7 +481,13 @@ const Bugs = () => {
     );
 
     const handleBugClick = (bug) => {
-        setSelectedBug(bug);
+        const formattedBug = {
+            ...bug,
+            stepsToReproduce: Array.isArray(bug.stepsToReproduce)
+                ? bug.stepsToReproduce
+                : bug.stepsToReproduce.split("\n").map((step) => step.trim()),
+        };
+        setSelectedBug(formattedBug);
     };
 
     const handleBackClick = () => {
@@ -517,10 +515,19 @@ const Bugs = () => {
                             {bugs.length === 0 ? (
                                 <div className="text-center text-gray-500">No bugs reported.</div>
                             ) : (
-                                <ul className="list-disc pl-5">
+                                <ul className="pl-5 list-none">
                                     {bugs.map((bug) => (
-                                        <li key={bug.id} className="mb-2 bg-gray-100 p-4 rounded-lg cursor-pointer" onClick={() => handleBugClick(bug)}>
-                                            <strong>Project ID:</strong> {bug.projectId} - <strong>Description:</strong> {bug.bugDescription}
+                                        <li
+                                            key={bug.id}
+                                            className="mb-4 bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+                                            onClick={() => handleBugClick(bug)}
+                                        >
+                                            <div className="text-gray-700 mt-2">
+                                                <strong>Project ID : </strong> {bug.projectId}
+                                            </div>
+                                            <div className="text-gray-600 mt-2">
+                                                <strong>Description :</strong> {bug.bugDescription}
+                                            </div>
                                         </li>
                                     ))}
                                 </ul>
@@ -529,11 +536,17 @@ const Bugs = () => {
                     )}
                     {selectedBug && (
                         <div className="bg-gray-100 p-4 rounded-lg">
-                            <h2 className="text-xl font-semibold mb-4">Bug Details</h2>
-                            <p><strong>Project ID:</strong> {selectedBug.projectId}</p>
-                            <p><strong>Description:</strong> {selectedBug.bugDescription}</p>
-                            <p><strong>Steps to Reproduce:</strong> {selectedBug.stepsToReproduce}</p>
-                            <p><strong>Additional Details:</strong> {selectedBug.additionalDetails}</p>
+                            <h2 className="text-xl mb-4">Bug Details</h2>
+                            <p><strong>Project ID: </strong> {selectedBug.projectId}</p>
+                            <p><strong>Description: </strong> {selectedBug.bugDescription}</p>
+                            <p><strong>Steps to Reproduce: </strong></p>
+                            <div className="pl-5">
+                                {selectedBug.stepsToReproduce.map((step, index) => (
+                                    <p key={index}>{step}</p>
+                                ))}
+                            </div>
+                            <p><strong>Additional Details: </strong> {selectedBug.additionalDetails}</p>
+                            <p><strong>URL: </strong> {selectedBug.url}</p>
                             <button
                                 onClick={handleBackClick}
                                 className="mt-4 px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition duration-200"

@@ -130,8 +130,8 @@ function Aboutus() {
 function BugsData() {
   return (
     <>
-      <div className="ml-64 p-6">
-        <DashNav val={"Bugs"} />
+      <div className="ml-64 p-4">
+        <DashNav/>
       </div>
       <div className="ml-64 min-h-screen flex">
         <Offcanvas></Offcanvas>
